@@ -1,25 +1,23 @@
 <template>
   <!-- Hero Start -->
-  <section
-    id="home"
-    class="bg-half-170 d-table w-100"
-  >
+  <section class="bg-half-170 d-table w-100">
     <div class="container">
       <div class="row align-items-center">
         <div class="col-lg-7 col-md-7">
           <div class="title-heading">
             <h1 class="heading mb-3">
-              Choose not to place "dis" in our <span class="text-primary">Ability</span>
+              <span class="text-primary">Acessibilidade</span>
+              é tornar o mundo melhor para <span class="text-primary">Todos</span>
             </h1>
             <p class="para-desc text-muted">
-              There is only one wat to look at things until someone shows us how to look at
-              them with different eyes.
+              Deficiente ou restrito nunca foi o indivíduo, e sim tudo
+              que impede atendimento igual para casos especiais.
             </p>
             <div class="mt-4">
               <a
                 href="page-contact-one.html"
                 class="btn btn-primary mt-2 mr-2"
-              ><i class="mdi mdi-human-wheelchair" /> Join Now</a>
+              ><i class="mdi mdi-human-wheelchair" /> Ser Assister</a>
             </div>
           </div>
         </div>

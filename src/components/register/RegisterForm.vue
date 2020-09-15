@@ -2,7 +2,7 @@
   <RegisterWrapper>
     <form class="rounded shadow-md p-4">
       <div class="row">
-        <InputMax v-model="customer.fullName" placeholder="Your Name"
+        <InputMax v-model="customer.fullName" placeholder="Nome Completo"
                   message="Your name must be between 3 and 120 characters"
                   :invalid="false"
         />

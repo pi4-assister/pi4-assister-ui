@@ -67,7 +67,7 @@
             <router-link
               to="/client"
               tag="a" >
-              Blog
+              Serviços
             </router-link>
           </li>
         </ul>
