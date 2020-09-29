@@ -16,7 +16,7 @@
             <div class="mt-4">
               <a
                 href="page-contact-one.html"
-                class="btn btn-primary mt-2 mr-2"
+                class="btn btn-primary mt-2 mr-2 btn-ser-assister"
               ><i class="mdi mdi-human-wheelchair" /> Ser Assister</a>
             </div>
           </div>
@@ -25,7 +25,7 @@
 
         <div class="col-lg-5 col-md-5 mt-4 pt-2 mt-sm-0 pt-sm-0">
           <img
-            src="../../assets/images/index/cadeirante-index.svg"
+            :src="Cadeirante"
             alt=""
           >
         </div>
@@ -40,8 +40,13 @@
 </template>
 
 <script>
+import Cadeirante from '../../assets/images/index/cadeirante-index.svg';
+
 export default {
   name: 'ClientHero',
+  data: () => ({
+    Cadeirante,
+  }),
 };
 </script>
 

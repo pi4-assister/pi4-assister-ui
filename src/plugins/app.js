@@ -1,19 +1,5 @@
 /* eslint-disable */
 !(function ($) {
-  // Loader
-  $(window).on('load', () => {
-    $('#status').fadeOut();
-    $('#preloader').delay(350).fadeOut('slow');
-    $('body').delay(350).css({
-      overflow: 'visible',
-    });
-  });
-
-  // Menu
-  $('.navbar-toggle').on('click', function (event) {
-    $(this).toggleClass('open');
-    $('#navigation').slideToggle(400);
-  });
 
   $('.navigation-menu>li').slice(-1).addClass('last-elements');
 
@@ -22,18 +8,6 @@
       e.preventDefault();
       $(this).parent('li').toggleClass('open').find('.submenu:first')
         .toggleClass('open');
-    }
-  });
-
-  $('.navigation-menu a').each(function () {
-    if (this.href == window.location.href) {
-      $(this).parent().addClass('active');
-      $(this).parent().parent().parent()
-        .addClass('active');
-      $(this).parent().parent().parent()
-        .parent()
-        .parent()
-        .addClass('active');
     }
   });
 
@@ -67,19 +41,6 @@
     } else {
       $('.sticky').removeClass('nav-sticky');
     }
-  });
-
-  // Back to top
-  $(window).scroll(function () {
-    if ($(this).scrollTop() > 100) {
-      $('.back-to-top').fadeIn();
-    } else {
-      $('.back-to-top').fadeOut();
-    }
-  });
-  $('.back-to-top').click(() => {
-    $('html, body').animate({ scrollTop: 0 }, 3000);
-    return false;
   });
 
   // Tooltip

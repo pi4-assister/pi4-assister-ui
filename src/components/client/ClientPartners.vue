@@ -6,7 +6,7 @@
 
         <div class="col-lg-2 col-md-2 col-6 text-center py-4">
           <img
-            src="../../assets/images/client/senac.svg"
+            :src="SenacImage"
             class="avatar avatar-ex-sm"
             alt=""
           >
@@ -22,8 +22,13 @@
 </template>
 
 <script>
+import SenacImage from '../../assets/images/client/senac.svg';
+
 export default {
   name: 'ClientPartners',
+  data: () => ({
+    SenacImage,
+  }),
 };
 </script>
 

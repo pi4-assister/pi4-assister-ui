@@ -2,7 +2,7 @@
   <!-- Navbar STart -->
   <header
     id="topnav"
-    class="defaultscroll sticky"
+    class="defaultscroll sticky d-none d-lg-block"
   >
     <div class="container">
       <!-- Logo container-->
@@ -13,7 +13,7 @@
           to="/client"
         >
           <img
-            src="../../assets/images/index/logo-index.jpg"
+            :src="LogoIndex"
             height="24"
             alt=""
           >
@@ -89,10 +89,13 @@
 </template>
 
 <script>
-// import $ from 'jquery';
+import LogoIndex from '../../assets/images/index/logo-index.jpg';
 
 export default {
   name: 'LayoutNavigation',
+  data: () => ({
+    LogoIndex,
+  }),
   mounted() {
     // eslint-disable-next-line no-undef
     $('.navbar-toggle')

@@ -9,7 +9,7 @@
             class="logo-footer"
           >
             <img
-              src="../../assets/images/index/logo-500-white.jpg"
+              :src="LogoWhite"
               height="100"
               class="image-center rounded"
               alt=""
@@ -31,9 +31,13 @@
 </template>
 
 <script>
+import LogoWhite from '../../assets/images/index/logo-500-white.jpg';
 
 export default {
   name: 'LayoutFooter',
+  data: () => ({
+    LogoWhite,
+  }),
 };
 </script>
 
