@@ -22,28 +22,21 @@
       <div class="buy-button">
         <router-link
           tag="button"
-          to="/register"
+          to="/auth-login"
+          class="btn btn-outline-primary mr-3"
+        >
+          Entrar
+        </router-link>
+        <router-link
+          tag="button"
+          to="/auth-register"
           class="btn btn-primary"
         >
-          Quero ser Assister
+          Cadastre-se
         </router-link>
       </div>
       <!--end login button-->
       <!-- End Logo container-->
-      <div class="menu-extras">
-        <div class="menu-item">
-          <!-- Mobile menu toggle-->
-          <a class="navbar-toggle">
-            <div class="lines">
-              <span />
-              <span />
-              <span />
-            </div>
-          </a>
-          <!-- End mobile menu toggle-->
-        </div>
-      </div>
-
       <div id="navigation">
         <!-- Navigation Menu-->
         <ul class="navigation-menu nav-right">
@@ -60,7 +53,7 @@
               to="/client"
               tag="a"
             >
-              Sobre Nós
+              Sobre nós
             </router-link>
           </li>
           <li :class="$route.name === '' ? 'active' : ''">
@@ -71,14 +64,6 @@
             </router-link>
           </li>
         </ul>
-        <!--end navigation menu-->
-        <div class="buy-menu-btn d-none">
-          <router-link
-            to="/register"
-            class="btn btn-primary"
-            tag="button">Quero ser Assister
-          </router-link>
-        </div>
         <!--end login button-->
       </div>
       <!--end navigation-->

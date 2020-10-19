@@ -1,6 +1,9 @@
 import LandingClient from '../views/landing-client/LandingClient.vue';
-import LandingRegister from '../views/landing-client/LandingRegister.vue';
+/* import LandingRegister from '../views/landing-client/LandingRegister.vue'; */
 import LayoutWrapper from '../components/layout/layout-wrapper.vue';
+
+import AuthLogin from '../views/auth/AuthLogin.vue';
+import AuthRegister from '../views/auth/AuthRegister.vue';
 
 const routesClient = [
   {
@@ -11,14 +14,14 @@ const routesClient = [
     },
     component: LandingClient,
   },
-  {
-    path: '/register',
-    name: 'LandingClient.Register',
+  /* {
+    path: '/auth-register',
+    name: 'LandingRegister.Index',
     meta: {
-      title: 'Assister - Welcome :)',
+      title: 'Assister - Registrar :)',
     },
     component: LandingRegister,
-  },
+  }, */
 ];
 
 const RoutesExport = [
@@ -35,6 +38,22 @@ const RoutesExport = [
     redirect: {
       name: 'LandingClient.Index',
     },
+  },
+  {
+    path: '/auth-login',
+    name: 'Auth.Login',
+    meta: {
+      title: 'Assister - Welcome :)',
+    },
+    component: AuthLogin,
+  },
+  {
+    path: '/auth-register',
+    name: 'Auth.Register',
+    meta: {
+      title: 'Assister - Cadastre-se :)',
+    },
+    component: AuthRegister,
   },
 ];
 

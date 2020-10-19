@@ -24,14 +24,6 @@
     }
   });
 
-  $('.mouse-down').on('click', function (event) {
-    const $anchor = $(this);
-    $('html, body').stop().animate({
-      scrollTop: $($anchor.attr('href')).offset().top - 72,
-    }, 1500, 'easeInOutExpo');
-    event.preventDefault();
-  });
-
   // Sticky
   $(window).scroll(() => {
     const scroll = $(window).scrollTop();

@@ -1,14 +1,15 @@
 <template>
   <div :class="customClass">
     <div class="form-group">
-      <label :for="id">{{ placeholder }}</label>
-      <input :id="id" :value="value"
+      <label :for="label">{{ label || placeholder }}</label>
+      <input :id="label" :value="value"
              :class="['form-control', invalid ? 'is-invalid' : '']"
              :placeholder="placeholder"
+             autocomplete="off"
              :maxlength="maxlength"
              @input="$emit('input', $event.target.value)"
       />
-      <div class="d-flex">
+      <div v-if="counter" class="d-flex">
         <small v-show="message && invalid" class="form-text invalid-feedback">
           {{ message }}
         </small>
@@ -38,6 +39,10 @@ export default {
       type: Number,
       default: 120,
     },
+    label: {
+      type: String,
+      default: '',
+    },
     placeholder: {
       type: String,
       default: '',
@@ -49,6 +54,10 @@ export default {
     customClass: {
       type: String,
       default: 'col-md-6',
+    },
+    counter: {
+      type: Boolean,
+      default: true,
     },
   },
   data() {

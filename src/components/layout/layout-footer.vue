@@ -1,32 +1,19 @@
 <template>
   <!-- Footer Start -->
-  <footer class="footer">
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-md-4 col-sm-12 mb-0 mb-md-4 pb-0 pb-md-2">
-          <a
-            href="#"
-            class="logo-footer"
-          >
-            <img
-              :src="LogoWhite"
-              height="100"
-              class="image-center rounded"
-              alt=""
-            >
-          </a>
-          <p class="mt-4 text-center">
-            Acessibilidade para todos. <br>
-            Responsabilidade de cada um.
-          </p>
+  <footer class="footer footer-bar">
+    <div class="container text-center">
+      <div class="row align-items-center">
+        <div class="col-sm-6">
+          <div class="text-sm-left">
+            <p class="mb-0">&copy; 2020 Assister. Construído com
+              <i class="mdi mdi-heart text-danger"></i> por
+              Alessandro, Pedro e Rafa.
+            </p>
+          </div>
         </div>
-        <!--end col-->
-        <!--end col-->
-      </div>
-      <!--end row-->
-    </div>
-    <!--end container-->
-  </footer>
+      </div><!--end row-->
+    </div><!--end container-->
+  </footer><!--end footer-->
   <!--end footer-->
 </template>
 

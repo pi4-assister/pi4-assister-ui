@@ -1,3 +1,4 @@
+/* eslint-disable */
 export const validaCPF = (value) => {
   const validLength = value.length >= 11;
   if (!isAllSame(value) && validLength) {

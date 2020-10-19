@@ -3,14 +3,14 @@
     <router-link tag="a" to="/client"
                  class="nav__link">
       <home-icon />
-      <span class="nav__text">Home</span>
+      <span class="nav__text">Início</span>
     </router-link>
     <router-link tag="a" to="/about-us"
                  class="nav__link">
       <heart-icon />
       <span class="nav__text">Sobre Nós</span>
     </router-link>
-    <router-link tag="a" to="/register"
+    <router-link tag="a" to="/auth-login"
                  class="nav__link">
       <user-icon />
       <span class="nav__text">Entrar</span>
@@ -36,7 +36,7 @@ export default {
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
   background-color: #ffffff;
   display: flex;
-  overflow-x: auto;
+  padding: 10px;
   z-index: 1;
 }
 
