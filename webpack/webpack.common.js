@@ -80,6 +80,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: './public/index.html',
+      favicon: './public/favicon.ico',
     }),
     new webpack.DefinePlugin({
       process: {
