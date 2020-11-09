@@ -31,9 +31,14 @@ import LayoutTransition from '../layout/layout-transition.vue';
 export default {
   name: 'RegisterWrapper',
   components: { LayoutTransition },
+  props: {
+    step: {
+      type: Number,
+      default: 0,
+    },
+  },
   data: () => ({
     Cadeirante,
-    step: 0,
   }),
 };
 </script>

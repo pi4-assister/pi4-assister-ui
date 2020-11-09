@@ -7,7 +7,7 @@
   "private": true,
   "scripts": {
     "development": "webpack-dev-server --config webpack/webpack.dev.js",
-    "dev": "npm run development -- --https://pi4-assister-staging.herokuapp.com/api/v1/",
+    "dev": "npm run development -- --pi4-assister-staging.herokuapp.com",
     "production": "webpack --progress --hide-modules --config webpack/webpack.prod.js"
   },
   "dependencies": {

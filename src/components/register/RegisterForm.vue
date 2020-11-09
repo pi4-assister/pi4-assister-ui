@@ -1,6 +1,6 @@
 <template>
-  <RegisterWrapper>
-    <form class="login-form mt-4" autocomplete="off">
+  <RegisterWrapper :step="step">
+    <form class="login-form mt-4" autocomplete="off" @submit.prevent="submit">
       <RegisterStep v-show="step === 0">
         <div class="row">
           <InputMax v-model="customer.fullName" label="Nome Completo"
@@ -66,6 +66,7 @@
                     label="CEP"
                     custom-class="col-lg-12"
                     :invalid="false"
+                    @click="procurarCEP"
           />
         </div>
         <div class="row">
@@ -73,8 +74,14 @@
                         placeholder="ex: Rua José Félix"
                         :invalid="false"
                         type="text"
-                        custom-class="col-lg-12"
+                        custom-class="col-lg-8"
                         readonly
+          />
+          <InputDefault v-model="customer.number" label="Número"
+                        placeholder="ex: 150"
+                        :invalid="false"
+                        type="text"
+                        custom-class="col-lg-4"
           />
         </div>
         <div class="row">
@@ -105,11 +112,9 @@
           />
         </div>
         <div class="row">
-          <InputDefault v-model="customer.password" label="Senha"
-                        placeholder="ex: **********"
-                        message="O e-mail informado é inválido"
-                        type="password"
-                        custom-class="col-lg-12"
+          <InputPassword v-model="customer.password"
+                         :invalid="false"
+                         custom-class="col-lg-12"
           />
         </div>
         <div class="row">
@@ -138,10 +143,18 @@
         </div>
       </div>
       <div class="row" v-show="step === 4">
+        <div class="mb-3 ml-auto col-lg-12">
+          <button class="btn btn-light btn-block" :disabled="false"
+                  type="button"
+                  @click="step--">
+            Voltar
+          </button>
+        </div>
+      </div>
+      <div class="row" v-show="step === 4">
         <div class="mb-0 ml-auto col-lg-12">
-          <button class="btn btn-primary btn-block" :disabled="true"
-                  type="submit"
-                  @click="step++">
+          <button class="btn btn-primary btn-block" :disabled="false"
+                  type="submit">
             Ser Assister!
           </button>
         </div>
@@ -164,6 +177,8 @@
 import { validationMixin } from 'vuelidate';
 import { required, minLength, maxLength } from 'vuelidate/lib/validators';
 import { validaCPF } from '../../validations/cpf';
+import { request } from '../../api/request';
+import { redirect } from '../../mixins/redirect';
 import RegisterWrapper from './RegisterWrapper.vue';
 import InputMax from '../input/InputMax.vue';
 import InputIdentificador from '../input/InputIdentificador.vue';
@@ -171,10 +186,12 @@ import RegisterStep from './RegisterStep.vue';
 import InputContato from '../input/InputContato.vue';
 import InputDefault from '../input/InputDefault.vue';
 import InputCEP from '../input/InputCEP.vue';
+import InputPassword from '../input/InputPassword.vue';
 
 export default {
   name: 'RegisterForm',
   components: {
+    InputPassword,
     InputCEP,
     InputDefault,
     InputContato,
@@ -183,7 +200,7 @@ export default {
     InputMax,
     RegisterWrapper,
   },
-  mixins: [validationMixin],
+  mixins: [validationMixin, request, redirect],
   data: () => ({
     customer: {
       address: '',
@@ -200,6 +217,7 @@ export default {
       phoneNumber: '',
       state: '',
       zipCode: '',
+      number: '',
     },
     step: 0,
   }),
@@ -213,10 +231,17 @@ export default {
     },
   },
   computed: {
+    customerPost() {
+      return this.$store.state.customer.customer.post;
+    },
     stepDisabled() {
       let retorno = true;
       if (this.step === 0) {
         if (this.customer.fullName.length >= 4 && validaCPF(this.customer.personIdentifier)) {
+          retorno = false;
+        }
+      } else if (this.step === 1) {
+        if (this.customer.phoneNumber.length >= 11 && this.customer.landlineNumber.length >= 10) {
           retorno = false;
         }
       } else {
@@ -229,7 +254,25 @@ export default {
       return !validaCPF(personIdentifier) && personIdentifier.length === 11;
     },
   },
-  methods: {},
+  methods: {
+    submit() {
+      const customer = { ...this.customer };
+      this.postRequest(this.customerPost, customer, 'O Usuário foi cadastrado com Sucesso!')
+        .then(() => {
+          this.redirectTo('LandingClient.Index');
+        })
+        .catch(() => {
+        });
+    },
+    procurarCEP() {
+      this.consultaCEP(this.customer.zipCode)
+        .then((res) => {
+          this.customer.address = res.logradouro;
+          this.customer.city = res.localidade;
+          this.customer.state = res.uf;
+        });
+    },
+  },
 };
 </script>
 

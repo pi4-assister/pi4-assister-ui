@@ -53,7 +53,7 @@ export default {
   data: () => ({
     identificador: '',
     config: {
-      cep: '###.###.###-##',
+      cep: '#####-###',
     },
     placeholder: {
       cep: 'ex: 00000-000',

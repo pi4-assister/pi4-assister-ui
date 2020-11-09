@@ -12,18 +12,20 @@
           <div class="card login-page bg-white shadow-md rounded border-0">
             <div class="card-body">
               <h4 class="card-title text-center">Entrar</h4>
-              <form class="login-form mt-4">
+              <form class="login-form mt-4" @submit.prevent="submit">
                 <div class="row">
                   <div class="col-lg-12">
                     <div class="form-group position-relative">
                       <label>E-mail</label>
-                      <input type="email" class="form-control" placeholder="Email">
+                      <input type="text" v-model="customer.email"
+                             class="form-control" placeholder="Email">
                     </div>
                   </div>
                   <div class="col-lg-12">
                     <div class="form-group position-relative">
                       <label>Senha</label>
-                      <input type="password" class="form-control" placeholder="Password">
+                      <input type="password" v-model="customer.password"
+                             class="form-control" placeholder="Password">
                     </div>
                   </div>
                   <div class="col-lg-12">
@@ -58,14 +60,37 @@
 
 <script>
 import Cadeirante from '../../assets/images/index/cadeirante-index.svg';
+import { request } from '../../api/request';
+import { redirect } from '../../mixins/redirect';
 import LayoutTransition from '../../components/layout/layout-transition.vue';
 
 export default {
   name: 'AuthLogin',
   components: { LayoutTransition },
+  mixins: [request, redirect],
   data: () => ({
     Cadeirante,
+    customer: {
+      email: '',
+      password: '',
+    },
   }),
+  computed: {
+    authPost() {
+      return this.$store.state.auth.session.post;
+    },
+  },
+  methods: {
+    submit() {
+      const customer = { ...this.customer };
+      this.authRequest(this.authPost, customer, 'O Usuário logou com Sucesso!')
+        .then(() => {
+          this.redirectTo('LandingClient.Index');
+        })
+        .catch(() => {
+        });
+    },
+  },
 };
 </script>
 

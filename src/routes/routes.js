@@ -5,6 +5,8 @@ import LayoutWrapper from '../components/layout/layout-wrapper.vue';
 import AuthLogin from '../views/auth/AuthLogin.vue';
 import AuthRegister from '../views/auth/AuthRegister.vue';
 
+import TmpServices from '../views/services/Services.vue';
+
 const routesClient = [
   {
     path: '/client',
@@ -13,6 +15,14 @@ const routesClient = [
       title: 'Assister - Welcome :)',
     },
     component: LandingClient,
+  },
+  {
+    path: '/customer-services',
+    name: 'Services.Index',
+    meta: {
+      title: 'Assister - Welcome :)',
+    },
+    component: TmpServices,
   },
   /* {
     path: '/auth-register',

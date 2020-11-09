@@ -1,5 +1,6 @@
 import iziToast from 'izitoast';
 
+// eslint-disable-next-line import/prefer-default-export
 export const notification = (message, type, timeout = 5000) => {
   const show = iziToast;
   const options = {

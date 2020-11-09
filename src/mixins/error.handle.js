@@ -1,4 +1,5 @@
 // [ ERROR HANDLE ]
+/* eslint-disable */
 import { notification } from './notification';
 import { status } from '../config/messages';
 

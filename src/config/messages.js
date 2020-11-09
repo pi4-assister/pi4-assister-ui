@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/prefer-default-export
 export const status = {
   0: 'Hmm... Aconteceu um erro desconhecido :( ... Tente novamente mais tarde. Se o erro persistir, contate nossa equipe de suporte.',
   200: 'Sucesso! Requisição realizada com sucesso',
