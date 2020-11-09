@@ -85,7 +85,7 @@ export default {
       const customer = { ...this.customer };
       this.authRequest(this.authPost, customer, 'O Usuário logou com Sucesso!')
         .then(() => {
-          this.redirectTo('LandingClient.Index');
+          this.redirectTo('Services.Index');
         })
         .catch(() => {
         });
