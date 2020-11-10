@@ -1,13 +1,14 @@
 import Axios from 'axios';
 
-const GET_SUBDOMAIN = window.location.host.split('.')[1] ? window.location.host.split('.')[0] : '';
+// eslint-disable-next-line max-len
+// const GET_SUBDOMAIN = window.location.host.split('.')[1] ? window.location.host.split('.')[0] : '';
 
 const serviceUrl = process.env.SERVICE_URL[0].slice(2) || '';
 
 // eslint-disable-next-line no-console
 console.log(serviceUrl);
 
-const subdomain = GET_SUBDOMAIN ? `${GET_SUBDOMAIN}.` : '';
+// const subdomain = GET_SUBDOMAIN ? `${GET_SUBDOMAIN}.` : '';
 
 const URL_API = `https://${serviceUrl}`;
 
