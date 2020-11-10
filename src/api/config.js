@@ -9,7 +9,7 @@ console.log(serviceUrl);
 
 const subdomain = GET_SUBDOMAIN ? `${GET_SUBDOMAIN}.` : '';
 
-const URL_API = `https://${subdomain}${serviceUrl}`;
+const URL_API = `https://${serviceUrl}`;
 
 // eslint-disable-next-line no-console
 console.log(URL_API);
