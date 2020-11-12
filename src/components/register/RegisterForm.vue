@@ -4,11 +4,20 @@
       <RegisterStep v-show="step === 0">
         <div class="row">
           <InputMax v-model="customer.fullName" label="Nome Completo"
-                    placeholder="ex: Alessandro Ciambarella"
+                    placeholder="ex: Nome Completo"
                     message="Your name must be between 3 and 120 characters"
                     :invalid="false"
                     :counter="false"
                     custom-class="col-lg-12"
+          />
+        </div>
+        <div class="row">
+          <InputDefault v-model="customer.birthdate" label="Data de Nascimento"
+                        placeholder="ex: 01/01/1990"
+                        message="A data de nascimento informada é inválida"
+                        :invalid="false"
+                        type="text"
+                        custom-class="col-lg-12"
           />
         </div>
         <div class="row">
@@ -40,13 +49,8 @@
       </RegisterStep>
       <RegisterStep v-show="step === 2">
         <div class="row">
-          <InputDefault v-model="customer.birthdate" label="Data de Nascimento"
-                        placeholder="ex: 01/01/1990"
-                        message="A data de nascimento informada é inválida"
-                        :invalid="false"
-                        type="text"
-                        custom-class="col-lg-12"
-          />
+          <InputCheckbox  label="Deficiências" :list="specialNeeds"
+                          text="label" v-model="customer.customerSpecialNeeds" />
         </div>
         <div class="row">
           <InputDefault v-model="customer.bio" label="Descrição"
@@ -179,6 +183,7 @@ import { required, minLength, maxLength } from 'vuelidate/lib/validators';
 import { validaCPF } from '../../validations/cpf';
 import { request } from '../../api/request';
 import { redirect } from '../../mixins/redirect';
+import { specialNeeds } from '../../config/messages';
 import RegisterWrapper from './RegisterWrapper.vue';
 import InputMax from '../input/InputMax.vue';
 import InputIdentificador from '../input/InputIdentificador.vue';
@@ -187,10 +192,12 @@ import InputContato from '../input/InputContato.vue';
 import InputDefault from '../input/InputDefault.vue';
 import InputCEP from '../input/InputCEP.vue';
 import InputPassword from '../input/InputPassword.vue';
+import InputCheckbox from '../input/InputCheckbox.vue';
 
 export default {
   name: 'RegisterForm',
   components: {
+    InputCheckbox,
     InputPassword,
     InputCEP,
     InputDefault,
@@ -218,7 +225,9 @@ export default {
       state: '',
       zipCode: '',
       number: '',
+      customerSpecialNeeds: [],
     },
+    specialNeeds,
     step: 0,
   }),
   validations: {

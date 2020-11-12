@@ -54,7 +54,7 @@ export default {
       rg: '',
     },
     placeholder: {
-      cpf: 'ex: 499.459.800-25',
+      cpf: 'ex: 000.000.000-00',
       cnpj: 'CNPJ',
       rg: 'RG',
     },

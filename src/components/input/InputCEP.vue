@@ -10,6 +10,7 @@
                   v-model="identificador"/>
         <div class="input-group-append">
           <button class="btn btn-info submitBnt"
+                  :disabled="identificador.length !== 8"
                   @click="$emit('click')"
                   type="button">Buscar</button>
         </div>
