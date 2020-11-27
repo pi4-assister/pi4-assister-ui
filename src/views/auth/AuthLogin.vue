@@ -1,79 +1,62 @@
 <template>
-  <section class="bg-home d-flex align-items-center">
-    <layout-transition />
-    <div class="container">
-      <div class="row align-items-center">
-        <div class="col-lg-7 col-md-6">
-          <div class="mr-lg-5">
-            <img :src="Cadeirante" class="img-fluid d-block mx-auto" alt="">
+  <section class="section p-0">
+    <HomeButton />
+    <div class="d-flex flex-wrap align-items-stretch mt-0">
+      <div class="col-lg-4 col-md-6 col-12 order-lg-1 min-vh-100 order-2 bg-white">
+        <div class="p-4 m-3">
+          <router-link to="/client">
+            <img :src="logoIndex" alt="logo" class="img-fluid mb-5 mt-2">
+          </router-link>
+          <h4 class="text-dark font-weight-normal">
+            Bem-Vindo a <span class="font-weight-bold">Assister</span>
+          </h4>
+          <p class="text-muted">Antes de começar, você deve realizar login!</p>
+          <form autocomplete="off" name="login" @submit.prevent="submit">
+            <input-email v-model="customer.username" :invalid="false" />
+            <input-senha v-model="customer.password" :invalid="false" />
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary btn-lg btn-icon btn-block"
+                      :disabled="submitButton">
+                Entrar
+              </button>
+            </div>
+          </form>
+          <div class="mt-5 text-muted text-center">
+            Ainda não tem uma conta? <router-link to="/auth-register">Cadastre-se</router-link>
+          </div>
+          <div class="text-center mt-5 text-small">
+            Copyright © Assister. Feito com 💙 por Alessandro, Pedro e Rafa
           </div>
         </div>
-        <div class="col-lg-5 col-md-6">
-          <div class="card login-page bg-white shadow-md rounded border-0">
-            <div class="card-body">
-              <h4 class="card-title text-center">Entrar</h4>
-              <form class="login-form mt-4" @submit.prevent="submit">
-                <div class="row">
-                  <div class="col-lg-12">
-                    <div class="form-group position-relative">
-                      <label>E-mail</label>
-                      <input type="text" v-model="customer.email"
-                             class="form-control" placeholder="Email">
-                    </div>
-                  </div>
-                  <div class="col-lg-12">
-                    <div class="form-group position-relative">
-                      <label>Senha</label>
-                      <input type="password" v-model="customer.password"
-                             class="form-control" placeholder="Password">
-                    </div>
-                  </div>
-                  <div class="col-lg-12">
-                    <div class="d-flex">
-                      <p class="forgot-pass ml-auto">
-                        <a href="auth-re-password.html" class="text-dark font-weight-bold">
-                          Esqueceu sua senha ?
-                        </a>
-                      </p>
-                    </div>
-                  </div>
-                  <div class="col-lg-12 mb-0">
-                    <button class="btn btn-primary btn-block">Entrar</button>
-                  </div>
-                  <div class="col-12 text-center">
-                    <p class="mb-0 mt-3">
-                      <small class="text-dark mr-2">Ainda não tem uma conta?</small>
-                      <router-link tag="a" to="/auth-register" class="text-dark font-weight-bold">
-                        Cadastre-se
-                      </router-link>
-                    </p>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div><!---->
-        </div> <!--end col-->
-      </div><!--end row-->
-    </div> <!--end container-->
-  </section><!--end section-->
+      </div>
+      <div :class="cssClass" :style="{backgroundImage: `url(${loginBackground})`}"></div>
+    </div>
+  </section>
 </template>
 
 <script>
-import Cadeirante from '../../assets/images/index/cadeirante-index.svg';
+import { mapActions } from 'vuex';
+import loginBackground from '../../assets/images/index/login-cadeirante.jpg';
+import logoIndex from '../../assets/images/index/logo-index.jpg';
 import { request } from '../../api/request';
 import { redirect } from '../../mixins/redirect';
-import LayoutTransition from '../../components/layout/layout-transition.vue';
+import InputEmail from '../../components/input/InputEmail.vue';
+import InputSenha from '../../components/input/InputSenha.vue';
+import HomeButton from '../../components/utils/HomeButton.vue';
 
 export default {
   name: 'AuthLogin',
-  components: { LayoutTransition },
+  components: { HomeButton, InputSenha, InputEmail },
   mixins: [request, redirect],
   data: () => ({
-    Cadeirante,
+    loginBackground,
+    logoIndex,
     customer: {
-      email: '',
+      username: '',
       password: '',
     },
+    submitButton: false,
+    cssClass: 'col-lg-8 col-12 order-2 min-vh-100 background-walk-y position-relative overlay-gradient-bottom',
   }),
   computed: {
     authPost() {
@@ -81,13 +64,22 @@ export default {
     },
   },
   methods: {
+    ...mapActions(['updateUser']),
     submit() {
       const customer = { ...this.customer };
+      this.submitButton = true;
       this.authRequest(this.authPost, customer, 'O Usuário logou com Sucesso!')
-        .then(() => {
+        .then((response) => {
+          // eslint-disable-next-line no-console
+          console.log(response, btoa(JSON.stringify(customer)));
+          sessionStorage.setItem('auth', btoa(JSON.stringify(customer)));
+          this.updateUser(response);
           this.redirectTo('Services.Index');
         })
-        .catch(() => {
+        .catch((error) => {
+          this.submitButton = false;
+          // eslint-disable-next-line no-console
+          console.log(error);
         });
     },
   },

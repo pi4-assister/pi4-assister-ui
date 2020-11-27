@@ -122,6 +122,9 @@ $value in $colors {
   .card-body {
     padding: 1.5rem;
   }
+  .card-assister {
+    min-height: 300px;
+  }
 }
 
 .invalid-feedback {
@@ -145,4 +148,73 @@ $value in $colors {
 
 textarea {
   resize: none;
+}
+
+@mixin background_walk($animation-name: backgroundWalkY, $s: 70s) {
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  animation-name: $animation-name;
+  animation-duration: $s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-fill-mode: forwards;
+  animation-timing-function: linear;
+}
+
+@mixin overlay($z-index: 99, $background-color: rgba(255, 255, 255, 0.5), $background-image: false) {
+  content: ' ';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: $background-color;
+  @if $background-image != false {
+    background-image: $background-image;
+  }
+  z-index: $z-index;
+}
+
+.overlay-gradient-bottom {
+  &:after {
+    @include overlay(1, false, linear-gradient(to bottom, rgba(0, 0, 0, 0) 65%, rgba(0, 0, 0, 0.65) 100%));
+  }
+}
+
+.btn-block {
+  display: block !important;
+  width: 100% !important;
+}
+
+.absolute-bottom-left {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+
+.background-walk-y {
+  @include background_walk;
+  background-size: 100%;
+}
+
+@keyframes backgroundWalkY {
+  0% {
+    background-position: 0 0%;
+  }
+  100% {
+    background-position: 0 100%;
+  }
+}
+
+.text-small {
+  font-size: 12px;
+  line-height: 20px;
+}
+
+.border-success {
+  border: 2px solid #28a745 !important;
+}
+
+.border-primary {
+  border: 2px solid #007bff !important;
 }

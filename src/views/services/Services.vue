@@ -6,41 +6,43 @@
         <div class="col-12">
           <div class="border-bottom">
             <div class="row">
-              <div class="col-lg-9 col-md-8">
+              <div class="col-lg-6 col-md-8">
                 <div class="section-title">
                   <h4 class="title mb-2">Todos os Serviços</h4>
                   <p class="text-muted mb-0">Serviços mais requisitados</p>
                 </div>
-              </div><!--end col-->
-
-              <div class="col-lg-3 col-md-4 mt-4 mt-sm-0 pt-2 pt-sm-0">
-                <div class="form custom-form">
-                  <div class="form-group">
-                    <label>Tipos de Serviços:</label>
-                    <select class="form-control custom-select" id="Sortbylist-job">
-                      <option>Todos</option>
-                      <option>Full Time</option>
-                      <option>Part Time</option>
-                      <option>Remote</option>
-                      <option>Work From Home</option>
-                    </select>
-                  </div>
+              </div>
+              <InputDate v-model="rangeDate" custom-class="col-lg-3 col-md-6 ml-auto"
+                         message=""
+                         label="Selecionar Período:"
+                         :invalid="false"
+                         mode="range"
+              />
+              <div class="col-lg-3 col-md-6">
+                <div class="form-group">
+                  <label>&nbsp;</label>
+                  <button class="searchbtn btn btn-primary btn-block"
+                          type="button" @click="requestServices"
+                          :disabled="loading"
+                  >
+                    Buscar
+                  </button>
                 </div>
-              </div><!--end col-->
+              </div>
             </div><!--end row-->
           </div>
         </div><!--end col-->
       </div><!--end row-->
-
-      <div class="row">
+      <Loading v-if="loading"/>
+      <div v-else class="row">
         <div class="col-12 mt-4 pt-2">
           <div class="section-title">
-            <h5 class="mb-0">Serviços Recomendados:</h5>
+            <h5 class="mb-0">Assisters Recomendados:</h5>
           </div>
         </div><!--end col-->
 
-        <ServiceWrapper v-for="i in 6" :key="i">
-          <ServiceCard />
+        <ServiceWrapper v-for="assister in assisters" :key="assister.id">
+          <ServiceCard :assister="assister"/>
         </ServiceWrapper>
         <!-- PAGINATION START -->
         <!--<div class="col-12 mt-4 pt-2">
@@ -60,13 +62,56 @@
 </template>
 
 <script>
+import { request } from '../../api/request';
+
 import ServiceCard from '../../components/services/ServiceCard.vue';
 import ServiceWrapper from '../../components/services/ServiceWrapper.vue';
+import InputDate from '../../components/input/InputDate.vue';
+import Loading from '../../components/utils/Loading.vue';
 
 export default {
   name: 'Services',
-  components: { ServiceWrapper, ServiceCard },
-  data: () => ({}),
+  components: {
+    Loading,
+    InputDate,
+    ServiceWrapper,
+    ServiceCard,
+  },
+  mixins: [request],
+  data: () => ({
+    assisters: [],
+    rangeDate: sessionStorage.getItem('rangeDate'),
+    loading: false,
+  }),
+  computed: {
+    getAssisters() {
+      return this.$store.state.service.assisters;
+    },
+    startDate() {
+      const startDate = this.rangeDate.split(' até ')[0];
+      return new Date(startDate).toISOString();
+    },
+    endDate() {
+      const endDate = this.rangeDate.split(' até ')[1];
+      return new Date(endDate).toISOString();
+    },
+  },
+  created() {
+    this.requestServices();
+  },
+  methods: {
+    requestServices() {
+      this.loading = true;
+      this.getRequest(`${this.getAssisters}?dateF=${this.endDate}&dateI=${this.startDate}`)
+        .then((res) => {
+          this.assisters = res;
+          this.loading = false;
+        })
+        .catch(() => {
+          this.loading = false;
+        });
+    },
+  },
 };
 </script>
 

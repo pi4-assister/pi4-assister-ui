@@ -1,11 +1,12 @@
 import LandingClient from '../views/landing-client/LandingClient.vue';
-/* import LandingRegister from '../views/landing-client/LandingRegister.vue'; */
 import LayoutWrapper from '../components/layout/layout-wrapper.vue';
 
 import AuthLogin from '../views/auth/AuthLogin.vue';
 import AuthRegister from '../views/auth/AuthRegister.vue';
 
 import TmpServices from '../views/services/Services.vue';
+
+import Account from '../views/account/Account.vue';
 
 const routesClient = [
   {
@@ -24,14 +25,22 @@ const routesClient = [
     },
     component: TmpServices,
   },
-  /* {
-    path: '/auth-register',
-    name: 'LandingRegister.Index',
+  {
+    path: '/account/profile',
+    name: 'Account.Index',
     meta: {
-      title: 'Assister - Registrar :)',
+      title: 'Assister - Welcome :)',
     },
-    component: LandingRegister,
-  }, */
+    component: Account,
+  },
+  {
+    path: '/auth-register',
+    name: 'Auth.Register',
+    meta: {
+      title: 'Assister - Cadastre-se :)',
+    },
+    component: AuthRegister,
+  },
 ];
 
 const RoutesExport = [
@@ -56,14 +65,6 @@ const RoutesExport = [
       title: 'Assister - Welcome :)',
     },
     component: AuthLogin,
-  },
-  {
-    path: '/auth-register',
-    name: 'Auth.Register',
-    meta: {
-      title: 'Assister - Cadastre-se :)',
-    },
-    component: AuthRegister,
   },
 ];
 

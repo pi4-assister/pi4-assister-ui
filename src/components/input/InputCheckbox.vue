@@ -1,6 +1,6 @@
 <template>
   <div :class="customClass">
-    <div class="form-group">
+    <div v-if="!image" class="form-group">
       <label>{{ label }}</label>
       <div class="form-check form-check-inline"
            v-for="check in list" :key="check['name']">
@@ -18,10 +18,40 @@
         </small>
       </div>
     </div>
+    <div v-else class="form-group">
+      <label>{{ label }}</label>
+      <div class="row">
+        <div class="col-lg-2 col-md-4 col-6" v-for="check in list" :key="check['name']"
+             role="button">
+          <div :class="[cssCard, checked.indexOf(check) > -1 ? 'border border-success' : '']"
+               @click="checkImage(check)">
+            <div class="card-body">
+              <div class="icon rounded-circle shadow-lg d-inline-block">
+                <img :src="check['img']" class="avatar avatar-md-sm" :alt="check['label']">
+              </div>
+              <div class="content mt-3">
+                <h6 class="mb-0">
+                  <span class="title text-dark">{{ check['label'] }}</span>
+                </h6>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex">
+        <small v-show="message && invalid" class="form-text invalid-feedback">
+          {{ message }}
+        </small>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import HealthSVG from '../../assets/images/insurance/health.svg';
+import TermLife from '../../assets/images/insurance/term-life.svg';
+import FamilyHealth from '../../assets/images/insurance/family-health.svg';
+
 export default {
   name: 'InputCheckbox',
   props: {
@@ -58,13 +88,30 @@ export default {
       default: 'label',
       required: true,
     },
+    image: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
       checked: [],
+      HealthSVG,
+      TermLife,
+      FamilyHealth,
+      cssCard: 'card explore-feature border-0 rounded text-center bg-white',
     };
   },
-  methods: {},
+  methods: {
+    checkImage(check) {
+      const index = this.checked.indexOf(check);
+      if (index > -1) {
+        this.checked.splice(index, 1);
+      } else {
+        this.checked.push(check);
+      }
+    },
+  },
   watch: {
     checked() {
       this.$emit('input', this.checked);

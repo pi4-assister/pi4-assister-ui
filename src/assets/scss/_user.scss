@@ -8,7 +8,7 @@
         position: relative;
         font-size: 13px;
     }
-} 
+}
 
 .cover-user {
     .container-fluid{
@@ -19,14 +19,12 @@
             position: absolute;
             height: 100%;
         }
-    }    
+    }
     .cover-user-img {
         height: 100vh;
     }
 }
 
-
-//account-profile.html(Pages > Account)
 .bg-profile {
     padding: 100px 0;
     @include home-common();
@@ -57,7 +55,7 @@
     .cover-user {
         .cover-user-img{
             padding: 0px 20%;
-        }  
+        }
     }
 }
 
@@ -69,7 +67,7 @@
         }
         .cover-user-content {
             text-align: left !important;
-        }    
+        }
         .cover-user-img {
             align-items: start !important;
             height: auto !important;
@@ -78,4 +76,10 @@
             margin: 30px 0;
         }
     }
+}
+
+@media (max-width: 768px) {
+  .bg-profile .public-profile {
+    top: 25px;
+  }
 }

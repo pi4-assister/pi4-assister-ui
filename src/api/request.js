@@ -22,12 +22,8 @@ const request = {
     async getRequest(context, ID) {
       const requestTo = ID ? `${context}/${ID}` : context;
       try {
-        const response = await instance.get(requestTo, {
-          headers: {
-            Authorization: `Bearer ${sessionStorage.getItem('token')}`,
-          },
-        });
-        return response.data.data || [{}];
+        const response = await instance.get(requestTo);
+        return response.data || [{}];
       } catch (error) {
         this.errorHandle(error);
         throw new Error(error);
@@ -47,15 +43,15 @@ const request = {
     // AUTH REQUEST
     async authRequest(context, user, message = 'Operação realizada com sucesso!') {
       try {
-        const { email, password } = user;
+        const { username, password } = user;
         const response = await instance.post(context, {}, {
           auth: {
-            username: email,
+            username,
             password,
           },
         });
         notification(message, 'success');
-        return response.data.data || [{}];
+        return response.data || [{}];
       } catch (error) {
         this.errorHandle(error);
         throw new Error(error);

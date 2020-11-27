@@ -5,15 +5,21 @@
       <home-icon />
       <span class="nav__text">Início</span>
     </router-link>
-    <router-link tag="a" to="/about-us"
+    <router-link tag="a" to="/customer-services"
                  class="nav__link">
       <heart-icon />
-      <span class="nav__text">Sobre Nós</span>
+      <span class="nav__text">Serviços</span>
     </router-link>
-    <router-link tag="a" to="/auth-login"
+    <router-link v-if="!userAuthenticated"
+                 tag="a" to="/auth-login"
                  class="nav__link">
       <user-icon />
       <span class="nav__text">Entrar</span>
+    </router-link>
+    <router-link v-else tag="a" to="/account/profile"
+                 class="nav__link">
+      <user-icon />
+      <span class="nav__text">Perfil</span>
     </router-link>
   </nav>
 </template>
@@ -24,6 +30,11 @@ import { UserIcon, HomeIcon, HeartIcon } from 'vue-feather-icons';
 export default {
   name: 'layout-navigation-mobile',
   components: { UserIcon, HomeIcon, HeartIcon },
+  computed: {
+    userAuthenticated() {
+      return this.$store.getters.userAuthenticated;
+    },
+  },
 };
 </script>
 

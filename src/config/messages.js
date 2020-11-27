@@ -8,9 +8,29 @@ export const status = {
 };
 
 export const specialNeeds = [
-  { name: 'PHYSICAL_DISABILITY', label: 'Deficiência Física' },
-  { name: 'VISUAL_DISABILITY', label: 'Deficiência Visual' },
-  { name: 'MENTAL_DISABILITY', label: 'Deficiência Mental' },
-  { name: 'HEARING_DISABILITY', label: 'Deficiência Auditiva' },
-  { name: 'ELDERLY', label: 'Velha Guarda' },
+  {
+    name: 'PHYSICAL_DISABILITY',
+    label: 'Deficiência Física',
+    img: 'https://www.flaticon.com/svg/static/icons/svg/3813/3813868.svg',
+  },
+  {
+    name: 'VISUAL_DISABILITY',
+    label: 'Deficiência Visual',
+    img: 'https://www.flaticon.com/svg/static/icons/svg/3813/3813868.svg',
+  },
+  {
+    name: 'MENTAL_DISABILITY',
+    label: 'Deficiência Mental',
+    img: 'https://www.flaticon.com/svg/static/icons/svg/3813/3813868.svg',
+  },
+  {
+    name: 'HEARING_DISABILITY',
+    label: 'Deficiência Auditiva',
+    img: 'https://www.flaticon.com/svg/static/icons/svg/3813/3813868.svg',
+  },
+  {
+    name: 'ELDERLY',
+    label: 'Terceira Idade',
+    img: 'https://www.flaticon.com/svg/static/icons/svg/3813/3813868.svg',
+  },
 ];

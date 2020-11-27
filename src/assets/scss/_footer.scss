@@ -2,6 +2,7 @@
 // footer.scss
 //
 .footer {
+    display: none;
     background: $footer;
     padding: 60px 0;
     position: relative;
@@ -9,6 +10,9 @@
     &.footer-bar {
         padding: 30px 0;
         border-top: 1px solid lighten($footer, 5%);
+        position: absolute;
+        width: 100%;
+        bottom: 0;
     }
 }
 
@@ -17,6 +21,9 @@
     &.footer-bar {
       padding: 30px 0 80px;
       border-top: 1px solid lighten($footer, 5%);
+      position: relative;
+      width: unset;
+      bottom: unset;
     }
   }
 }

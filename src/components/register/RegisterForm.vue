@@ -1,180 +1,138 @@
 <template>
-  <RegisterWrapper :step="step">
-    <form class="login-form mt-4" autocomplete="off" @submit.prevent="submit">
-      <RegisterStep v-show="step === 0">
-        <div class="row">
-          <InputMax v-model="customer.fullName" label="Nome Completo"
-                    placeholder="ex: Nome Completo"
-                    message="Your name must be between 3 and 120 characters"
-                    :invalid="false"
-                    :counter="false"
-                    custom-class="col-lg-12"
-          />
-        </div>
-        <div class="row">
-          <InputDefault v-model="customer.birthdate" label="Data de Nascimento"
-                        placeholder="ex: 01/01/1990"
-                        message="A data de nascimento informada é inválida"
-                        :invalid="false"
-                        type="text"
-                        custom-class="col-lg-12"
-          />
-        </div>
-        <div class="row">
-          <InputIdentificador v-model="customer.personIdentifier"
-                              type="cpf"
-                              label="CPF"
-                              custom-class="col-lg-12"
-                              :invalid="invalidCPF"
-          />
-        </div>
-      </RegisterStep>
-      <RegisterStep v-show="step === 1">
-        <div class="row">
-          <InputContato v-model="customer.landlineNumber"
-                        type="telefone"
-                        label="Telefone"
-                        custom-class="col-lg-12"
-                        :invalid="false"
-          />
-        </div>
-        <div class="row">
-          <InputContato v-model="customer.phoneNumber"
-                        type="celular"
-                        label="Celular"
-                        custom-class="col-lg-12"
-                        :invalid="false"
-          />
-        </div>
-      </RegisterStep>
-      <RegisterStep v-show="step === 2">
-        <div class="row">
-          <InputCheckbox  label="Deficiências" :list="specialNeeds"
-                          text="label" v-model="customer.customerSpecialNeeds" />
-        </div>
-        <div class="row">
-          <InputDefault v-model="customer.bio" label="Descrição"
-                        placeholder="ex: Sou deficiente auditivo, tenho dificuldade em..."
-                        message=""
-                        :invalid="false"
-                        type="text"
-                        custom-class="col-lg-12"
-                        textarea
-          />
-        </div>
-      </RegisterStep>
-      <RegisterStep v-show="step === 3">
-        <div class="row">
-          <InputCEP v-model="customer.zipCode"
-                    type="cep"
-                    label="CEP"
-                    custom-class="col-lg-12"
-                    :invalid="false"
-                    @click="procurarCEP"
-          />
-        </div>
-        <div class="row">
-          <InputDefault v-model="customer.address" label="Endereço"
-                        placeholder="ex: Rua José Félix"
-                        :invalid="false"
-                        type="text"
-                        custom-class="col-lg-8"
-                        readonly
-          />
-          <InputDefault v-model="customer.number" label="Número"
-                        placeholder="ex: 150"
-                        :invalid="false"
-                        type="text"
-                        custom-class="col-lg-4"
-          />
-        </div>
-        <div class="row">
-          <InputDefault v-model="customer.city" label="Cidade"
-                        placeholder="ex: Campinas"
-                        :invalid="false"
-                        type="text"
-                        custom-class="col-lg-8"
-                        readonly
-          />
-          <InputDefault v-model="customer.state" label="Estado"
-                        placeholder="ex: SP"
-                        :invalid="false"
-                        type="text"
-                        custom-class="col-lg-4"
-                        readonly
-          />
-        </div>
-      </RegisterStep>
-      <RegisterStep v-show="step === 4">
-        <div class="row">
-          <InputDefault v-model="customer.email" label="E-mail"
-                        placeholder="ex: contato@assister.com.br"
-                        message="O e-mail informado é inválido"
-                        :invalid="false"
-                        type="email"
-                        custom-class="col-lg-12"
-          />
-        </div>
-        <div class="row">
-          <InputPassword v-model="customer.password"
-                         :invalid="false"
-                         custom-class="col-lg-12"
-          />
-        </div>
-        <div class="row">
-          <InputDefault v-model="customer.password" label="Confirmar Senha"
-                        placeholder="ex: **********"
-                        message="O e-mail informado é inválido"
-                        type="password"
-                        custom-class="col-lg-12"
-          />
-        </div>
-      </RegisterStep>
-      <div class="row" v-show="step !== 4">
-        <div v-show="step !== 0" class="col-lg-6 mb-0">
-          <button class="btn btn-light btn-block"
-                  type="button"
-                  @click="step--">
-            Voltar
-          </button>
-        </div>
-        <div :class="['mb-0 ml-auto', step === 0 ? 'col-lg-12' : 'col-lg-6']">
-          <button class="btn btn-primary btn-block" :disabled="stepDisabled"
-                  type="button"
-                  @click="step++">
-            Continuar
-          </button>
+  <section class="section pt-0">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col">
+          <div class="card custom-form border-0">
+            <div class="card-body">
+              <form class="rounded shadow p-4" @submit.prevent="submit">
+                <ClientType v-model="customer.customerType" />
+                <Accordion label="Informações Básicas" accordion="infoBasic">
+                  <div class="row">
+                    <InputMax v-model="customer.fullName" label="Nome Completo"
+                              placeholder="ex: Nome Completo"
+                              message="Your name must be between 3 and 120 characters"
+                              :invalid="false"
+                              :counter="false"
+                    />
+                    <InputDate v-model="customer.birthdate"
+                               message="A data de nascimento informada é inválida"
+                               :invalid="false"
+                               min-date="1901-01-01"
+                               max-date="today"
+                    />
+                  </div>
+                  <div class="row">
+                    <InputIdentificador v-model="customer.personIdentifier"
+                                        type="cpf"
+                                        label="CPF"
+                                        :invalid="invalidCPF"
+                    />
+                    <InputContato v-model="customer.landlineNumber"
+                                  type="telefone"
+                                  label="Telefone"
+                                  :invalid="false"
+                    />
+                  </div>
+                  <div class="row">
+                    <InputContato v-model="customer.phoneNumber"
+                                  type="celular"
+                                  label="Celular"
+                                  :invalid="false"
+                    />
+                  </div>
+                </Accordion>
+                <Accordion label="Informações Complementares" accordion="infoComplement">
+                  <div class="row">
+                    <InputCheckbox label="Deficiências" :list="specialNeeds"
+                                   text="label" v-model="customer.customerSpecialNeeds"
+                                   custom-class="col"
+                                   image
+                    />
+                  </div>
+                  <div class="row">
+                    <InputDefault v-model="customer.bio" label="Descrição"
+                                  placeholder="ex: Sou deficiente auditivo, tenho dificuldade em..."
+                                  message=""
+                                  :invalid="false"
+                                  type="text"
+                                  textarea
+                                  custom-class="col"
+                    />
+                  </div>
+                </Accordion>
+                <Accordion label="Informações de Endereço" accordion="infoAddress">
+                  <div class="row">
+                    <InputCEP v-model="customer.zipCode"
+                              type="cep"
+                              label="CEP"
+                              :invalid="invalidCEP"
+                              @click="procurarCEP"
+                    />
+                    <InputDefault v-model="customer.address" label="Endereço"
+                                  placeholder="ex: Rua José Félix"
+                                  :invalid="false"
+                                  type="text"
+                                  readonly
+                                  custom-class="col-md-4"
+                    />
+                    <InputDefault v-model="customer.number" label="Número"
+                                  placeholder="ex: 150"
+                                  :invalid="false"
+                                  type="text"
+                                  custom-class="col-md-2"
+                    />
+                  </div>
+                  <div class="row">
+                    <InputDefault v-model="customer.city" label="Cidade"
+                                  placeholder="ex: Campinas"
+                                  :invalid="false"
+                                  type="text"
+                                  readonly
+                    />
+                    <InputDefault v-model="customer.state" label="Estado"
+                                  placeholder="ex: SP"
+                                  :invalid="false"
+                                  type="text"
+                                  readonly
+                    />
+                  </div>
+                </Accordion>
+                <Accordion label="Informações de Acesso" accordion="infoAccount">
+                  <div class="row">
+                    <InputDefault v-model="customer.email" label="E-mail"
+                                  placeholder="ex: contato@assister.com.br"
+                                  message="O e-mail informado é inválido"
+                                  :invalid="false"
+                                  type="email"
+                    />
+                    <InputPassword v-model="customer.password"
+                                   :invalid="false"
+                    />
+                  </div>
+                  <div class="row">
+                    <InputDefault v-model="customer.password" label="Confirmar Senha"
+                                  placeholder="ex: **********"
+                                  message="O e-mail informado é inválido"
+                                  type="password"
+                    />
+                  </div>
+                </Accordion>
+                <div class="row mt-5">
+                  <div class="col-sm-12">
+                    <button class="submitBnt btn btn-primary" :disabled="false"
+                            type="submit">
+                      Ser Assister!
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div><!--end custom-form-->
         </div>
       </div>
-      <div class="row" v-show="step === 4">
-        <div class="mb-3 ml-auto col-lg-12">
-          <button class="btn btn-light btn-block" :disabled="false"
-                  type="button"
-                  @click="step--">
-            Voltar
-          </button>
-        </div>
-      </div>
-      <div class="row" v-show="step === 4">
-        <div class="mb-0 ml-auto col-lg-12">
-          <button class="btn btn-primary btn-block" :disabled="false"
-                  type="submit">
-            Ser Assister!
-          </button>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-12 text-center">
-          <p class="mb-0 mt-3">
-            <small class="text-dark mr-2">Já tem uma conta?</small>
-            <router-link tag="a" to="/auth-login" class="text-dark font-weight-bold">
-              Entre
-            </router-link>
-          </p>
-        </div>
-      </div>
-    </form>
-  </RegisterWrapper>
+    </div>
+  </section>
 </template>
 
 <script>
@@ -184,35 +142,37 @@ import { validaCPF } from '../../validations/cpf';
 import { request } from '../../api/request';
 import { redirect } from '../../mixins/redirect';
 import { specialNeeds } from '../../config/messages';
-import RegisterWrapper from './RegisterWrapper.vue';
 import InputMax from '../input/InputMax.vue';
 import InputIdentificador from '../input/InputIdentificador.vue';
-import RegisterStep from './RegisterStep.vue';
 import InputContato from '../input/InputContato.vue';
 import InputDefault from '../input/InputDefault.vue';
 import InputCEP from '../input/InputCEP.vue';
 import InputPassword from '../input/InputPassword.vue';
 import InputCheckbox from '../input/InputCheckbox.vue';
+import InputDate from '../input/InputDate.vue';
+import ClientType from '../auth/ClientType.vue';
+import Accordion from '../utils/Accordion.vue';
 
 export default {
   name: 'RegisterForm',
   components: {
+    Accordion,
+    ClientType,
+    InputDate,
     InputCheckbox,
     InputPassword,
     InputCEP,
     InputDefault,
     InputContato,
-    RegisterStep,
     InputIdentificador,
     InputMax,
-    RegisterWrapper,
   },
   mixins: [validationMixin, request, redirect],
   data: () => ({
     customer: {
       address: '',
       bio: '',
-      birthdate: '2020-10-04T18:47:04.375Z',
+      birthdate: new Date().toISOString(),
       city: '',
       customerType: 'CLIENT',
       email: '',
@@ -228,6 +188,7 @@ export default {
       customerSpecialNeeds: [],
     },
     specialNeeds,
+    invalidCEP: false,
     step: 0,
   }),
   validations: {
@@ -243,20 +204,11 @@ export default {
     customerPost() {
       return this.$store.state.customer.customer.post;
     },
-    stepDisabled() {
-      let retorno = true;
-      if (this.step === 0) {
-        if (this.customer.fullName.length >= 4 && validaCPF(this.customer.personIdentifier)) {
-          retorno = false;
-        }
-      } else if (this.step === 1) {
-        if (this.customer.phoneNumber.length >= 11 && this.customer.landlineNumber.length >= 10) {
-          retorno = false;
-        }
-      } else {
-        retorno = false;
-      }
-      return retorno;
+    classClient() {
+      return ['media key-feature align-items-center p-3 rounded-md shadow bg-white', this.value === 'CLIENT' ? 'border border-success' : ''];
+    },
+    classAssister() {
+      return ['media key-feature align-items-center p-3 rounded-md shadow bg-white', this.value === 'ASSISTER' ? 'border border-success' : ''];
     },
     invalidCPF() {
       const { personIdentifier } = this.customer;
@@ -276,9 +228,17 @@ export default {
     procurarCEP() {
       this.consultaCEP(this.customer.zipCode)
         .then((res) => {
-          this.customer.address = res.logradouro;
-          this.customer.city = res.localidade;
-          this.customer.state = res.uf;
+          if (!res.erro) {
+            this.customer.address = res.logradouro;
+            this.customer.city = res.localidade;
+            this.customer.state = res.uf;
+            this.invalidCEP = false;
+          } else {
+            this.invalidCEP = true;
+            this.customer.address = '';
+            this.customer.city = '';
+            this.customer.state = '';
+          }
         });
     },
   },

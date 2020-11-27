@@ -1,1 +1,2 @@
-// export const updateThemeSelected = ({commit}, payload) => commit('updateThemeSelected', payload)
+// eslint-disable-next-line import/prefer-default-export
+export const updateUser = ({ commit }, payload) => commit('updateUser', payload);

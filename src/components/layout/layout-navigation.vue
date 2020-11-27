@@ -19,7 +19,7 @@
           >
         </router-link>
       </div>
-      <div class="buy-button">
+      <div class="buy-button" v-if="!userAuthenticated">
         <router-link
           tag="button"
           to="/auth-login"
@@ -35,11 +35,16 @@
           Cadastre-se
         </router-link>
       </div>
+      <div class="buy-button" v-else>
+        <router-link tag="a" to="/account/profile">
+          <user-icon />
+        </router-link>
+      </div>
       <!--end login button-->
       <!-- End Logo container-->
       <div id="navigation">
         <!-- Navigation Menu-->
-        <ul class="navigation-menu nav-right">
+        <ul :class="['navigation-menu nav-right', navigationClass]">
           <li :class="$route.name === 'LandingClient.Index' ? 'active' : ''">
             <router-link
               to="/client"
@@ -50,15 +55,7 @@
           </li>
           <li :class="$route.name === '' ? 'active' : ''">
             <router-link
-              to="/client"
-              tag="a"
-            >
-              Sobre nós
-            </router-link>
-          </li>
-          <li :class="$route.name === '' ? 'active' : ''">
-            <router-link
-              to="/client"
+              to="/customer-services"
               tag="a" >
               Serviços
             </router-link>
@@ -74,13 +71,24 @@
 </template>
 
 <script>
+import { UserIcon } from 'vue-feather-icons';
 import LogoIndex from '../../assets/images/index/logo-index.jpg';
 
 export default {
   name: 'LayoutNavigation',
+  components: { UserIcon },
   data: () => ({
     LogoIndex,
   }),
+  computed: {
+    userAuthenticated() {
+      return this.$store.getters.userAuthenticated;
+    },
+    navigationClass() {
+      const routesLight = ['LandingClient.Index', 'Account.Index', 'Auth.Register'];
+      return routesLight.indexOf(this.$route.name) > -1 ? 'nav-light' : '';
+    },
+  },
   mounted() {
     // eslint-disable-next-line no-undef
     $('.navbar-toggle')
