@@ -3,7 +3,7 @@
     <div class="container mt-lg-3">
       <div class="row">
         <ProfileRoutes />
-        <ProfileUpdate />
+        <ProfileBasic :user="user" />
       </div>
     </div>
   </section>
@@ -11,11 +11,11 @@
 
 <script>
 import ProfileRoutes from '../profile/ProfileRoutes.vue';
-import ProfileUpdate from '../profile/ProfileUpdate.vue';
+import ProfileBasic from '../profile/ProfileBasic.vue';
 
 export default {
   name: 'AccountProfile',
-  components: { ProfileUpdate, ProfileRoutes },
+  components: { ProfileBasic, ProfileRoutes },
   computed: {
     user() {
       return this.$store.state.auth.user;
