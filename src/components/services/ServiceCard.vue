@@ -40,7 +40,15 @@
           {{ specialNeed.need.label }}
         </li>
       </ul>
-      <button type="button" class="btn btn-outline-primary btn-block mt-auto">
+      <div v-if="!userAuthenticated" class="mt-auto w-100">
+        <router-link to="/auth-register" class="btn btn-outline-light">
+          Cadastrar-se
+        </router-link>
+        <router-link to="/auth-login" class="btn btn-primary float-right">
+          Entrar
+        </router-link>
+      </div>
+      <button v-else type="button" class="btn btn-outline-primary btn-block mt-auto">
         Solicitar Orçamento
       </button>
     </div>
@@ -68,6 +76,9 @@ export default {
     pit: 'https://i.ibb.co/Wv0pmKd/Whats-App-Image-2020-11-09-at-4-28-16-PM.jpg',
   }),
   computed: {
+    userAuthenticated() {
+      return this.$store.getters.userAuthenticated;
+    },
     specialNeeds() {
       return this.assister.specialNeeds.map((specialNeedType) => specialNeedType);
     },

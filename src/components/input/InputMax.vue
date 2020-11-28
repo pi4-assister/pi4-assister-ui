@@ -7,13 +7,14 @@
              :placeholder="placeholder"
              autocomplete="off"
              :maxlength="maxlength"
+             :readonly="readonly"
              @input="$emit('input', $event.target.value)"
       />
-      <div v-if="counter" class="d-flex">
+      <div class="d-flex">
         <small v-show="message && invalid" class="form-text invalid-feedback">
           {{ message }}
         </small>
-        <small class="form-text text-muted ml-auto">
+        <small v-if="counter" class="form-text text-muted ml-auto">
           {{ length }}/{{ maxlength }}
         </small>
       </div>
@@ -58,6 +59,10 @@ export default {
     counter: {
       type: Boolean,
       default: true,
+    },
+    readonly: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {

@@ -62,13 +62,15 @@ const request = {
     async putRequest(context, ID, data, message = 'Operação realizada com sucesso!') {
       const requestTo = `${context}/${ID}`;
       try {
+        const { username, password } = JSON.parse(atob(sessionStorage.getItem('auth')));
         const response = await instance.put(requestTo, data, {
-          headers: {
-            Authorization: `Bearer ${sessionStorage.getItem('token')}`,
+          auth: {
+            username,
+            password,
           },
         });
         notification(message, 'success');
-        return response.data.data || [{}];
+        return response.data || [{}];
       } catch (error) {
         this.errorHandle(error);
         throw new Error(error);

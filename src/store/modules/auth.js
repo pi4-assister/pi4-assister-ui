@@ -1,4 +1,4 @@
-const user = {
+export const userStore = {
   authenticated: false,
   address: '',
   bio: '',
@@ -26,12 +26,11 @@ const user = {
   zipCode: '',
 };
 
-// eslint-disable-next-line import/prefer-default-export
 export const moduleAuth = {
   state: () => ({
     session: {
       post: '/api/v1/session/',
     },
-    user: { ...JSON.parse(sessionStorage.getItem('user')) || user },
+    user: { ...JSON.parse(sessionStorage.getItem('user')) || userStore },
   }),
 };

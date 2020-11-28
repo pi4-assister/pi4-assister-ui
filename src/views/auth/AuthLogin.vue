@@ -74,7 +74,11 @@ export default {
           console.log(response, btoa(JSON.stringify(customer)));
           sessionStorage.setItem('auth', btoa(JSON.stringify(customer)));
           this.updateUser(response);
-          this.redirectTo('Services.Index');
+          if (response.customerType === 'CLIENT') {
+            this.redirectTo('Services.Index');
+          } else {
+            this.redirectTo('Account.Index');
+          }
         })
         .catch((error) => {
           this.submitButton = false;

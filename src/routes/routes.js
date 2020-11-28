@@ -7,6 +7,7 @@ import AuthRegister from '../views/auth/AuthRegister.vue';
 import TmpServices from '../views/services/Services.vue';
 
 import Account from '../views/account/Account.vue';
+import AccountUpdate from '../views/account/AccountUpdate.vue';
 
 const routesClient = [
   {
@@ -18,7 +19,7 @@ const routesClient = [
     component: LandingClient,
   },
   {
-    path: '/customer-services',
+    path: '/services',
     name: 'Services.Index',
     meta: {
       title: 'Assister - Welcome :)',
@@ -32,6 +33,14 @@ const routesClient = [
       title: 'Assister - Welcome :)',
     },
     component: Account,
+  },
+  {
+    path: '/account/profile/update',
+    name: 'Account.Update',
+    meta: {
+      title: 'Assister - Welcome :)',
+    },
+    component: AccountUpdate,
   },
   {
     path: '/auth-register',

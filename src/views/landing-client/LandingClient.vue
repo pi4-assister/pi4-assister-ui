@@ -1,7 +1,7 @@
 <template>
   <div id="layout-wrapper">
     <LandingHero />
-    <LandingForm />
+    <LandingForm v-if="user.customerType === 'CLIENT'" />
   </div>
 </template>
 <script>
@@ -15,5 +15,10 @@ export default {
   data: () => ({
     Cadeirante,
   }),
+  computed: {
+    user() {
+      return this.$store.state.auth.user;
+    },
+  },
 };
 </script>

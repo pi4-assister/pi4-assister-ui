@@ -21,7 +21,7 @@
     <div v-else class="form-group">
       <label>{{ label }}</label>
       <div class="row">
-        <div class="col-lg-2 col-md-4 col-6" v-for="check in list" :key="check['name']"
+        <div class="col" v-for="check in list" :key="check['name']"
              role="button">
           <div :class="[cssCard, checked.indexOf(check) > -1 ? 'border border-success' : '']"
                @click="checkImage(check)">
@@ -101,6 +101,9 @@ export default {
       FamilyHealth,
       cssCard: 'card explore-feature border-0 rounded text-center bg-white',
     };
+  },
+  created() {
+    this.checked = this.value;
   },
   methods: {
     checkImage(check) {

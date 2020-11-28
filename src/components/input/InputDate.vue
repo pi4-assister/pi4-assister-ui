@@ -58,6 +58,10 @@ export default {
     maxDate: {
       default: '',
     },
+    readonly: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -67,18 +71,29 @@ export default {
       },
     };
   },
-  methods: {},
+  watch: {
+    invalid() {
+      const inputDate = document.querySelectorAll('input.form-control.form-control.input');
+      if (this.invalid) {
+        inputDate[inputDate.length - 1].classList.add('is-invalid');
+      } else {
+        inputDate[inputDate.length - 1].classList.remove('is-invalid');
+      }
+    },
+  },
   mounted() {
     const inputDate = document.getElementById('input-date');
-    flatpickr(inputDate, {
-      locale: Portuguese,
-      altInput: true,
-      altFormat: 'd/m/Y',
-      dateFormat: 'Y-m-d',
-      minDate: this.minDate,
-      maxDate: this.maxDate,
-      mode: this.mode,
-    });
+    if (!this.readonly) {
+      flatpickr(inputDate, {
+        locale: Portuguese,
+        altInput: true,
+        altFormat: 'd/m/Y',
+        dateFormat: 'Y-m-d',
+        minDate: this.minDate,
+        maxDate: this.maxDate,
+        mode: this.mode,
+      });
+    }
   },
 };
 </script>

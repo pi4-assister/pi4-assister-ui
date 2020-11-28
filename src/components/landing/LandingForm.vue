@@ -15,7 +15,7 @@
               <div class="col-lg-3 col-md-6">
                 <div class="form-group">
                   <label>&nbsp;</label>
-                  <router-link to="/customer-services" class="searchbtn btn btn-primary btn-block">
+                  <router-link to="/services" class="searchbtn btn btn-primary btn-block">
                     Buscar
                   </router-link>
                 </div>

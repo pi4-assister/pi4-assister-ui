@@ -2,37 +2,56 @@
   <nav class="nav d-lg-none">
     <router-link tag="a" to="/client"
                  class="nav__link">
-      <home-icon />
+      <home-icon/>
       <span class="nav__text">Início</span>
     </router-link>
-    <router-link tag="a" to="/customer-services"
+    <router-link v-if="user.customerType === 'CLIENT'" tag="a" to="/services"
                  class="nav__link">
-      <heart-icon />
+      <heart-icon/>
       <span class="nav__text">Serviços</span>
+    </router-link>
+    <router-link v-else tag="a" to="/services"
+                 class="nav__link">
+      <message-circle-icon/>
+      <span class="nav__text">Notificações</span>
     </router-link>
     <router-link v-if="!userAuthenticated"
                  tag="a" to="/auth-login"
                  class="nav__link">
-      <user-icon />
+      <user-icon/>
       <span class="nav__text">Entrar</span>
     </router-link>
     <router-link v-else tag="a" to="/account/profile"
                  class="nav__link">
-      <user-icon />
+      <user-icon v-if="!user.photoUrl"/>
+      <img v-else :src="user.photoUrl" width="30" height="30" :alt="user.fullName">
       <span class="nav__text">Perfil</span>
     </router-link>
   </nav>
 </template>
 
 <script>
-import { UserIcon, HomeIcon, HeartIcon } from 'vue-feather-icons';
+import {
+  UserIcon,
+  HomeIcon,
+  HeartIcon,
+  MessageCircleIcon,
+} from 'vue-feather-icons';
 
 export default {
   name: 'layout-navigation-mobile',
-  components: { UserIcon, HomeIcon, HeartIcon },
+  components: {
+    UserIcon,
+    HomeIcon,
+    HeartIcon,
+    MessageCircleIcon,
+  },
   computed: {
     userAuthenticated() {
       return this.$store.getters.userAuthenticated;
+    },
+    user() {
+      return this.$store.state.auth.user;
     },
   },
 };

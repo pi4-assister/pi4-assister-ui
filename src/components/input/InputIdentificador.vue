@@ -7,6 +7,7 @@
                 :id="label"
                 :placeholder="placeholder[type]"
                 :mask="config[type]"
+                :readonly="readonly"
                 :class="{'form-control' : true, 'is-invalid': invalid, 'is-valid': false}"
                 v-model="identificador"/>
       <div class="d-flex">
@@ -34,6 +35,10 @@ export default {
     },
     invalid: {
       type: Boolean,
+    },
+    readonly: {
+      type: Boolean,
+      default: false,
     },
     type: {
       type: String,

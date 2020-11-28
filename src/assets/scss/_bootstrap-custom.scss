@@ -218,3 +218,37 @@ textarea {
 .border-primary {
   border: 2px solid #007bff !important;
 }
+
+.assister-route::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 2px;
+  background: white;
+  transition: width .3s;
+}
+
+.nav-sticky {
+  .assister-route::after {
+    background: #007bff;
+  }
+  .router-link-exact-active {
+    color: #0336ff !important;
+  }
+}
+
+.assister-route:hover::after {
+  width: 100%;
+  //transition: width .3s;
+}
+
+.router-link-exact-active {
+  color: #fff !important;
+  &:after{
+    width: 100%;
+  }
+}
+
+#container > div > nav > a.nav__link.router-link-exact-active.router-link-active {
+  color: #0336ff !important;
+}
