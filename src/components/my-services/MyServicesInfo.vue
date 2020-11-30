@@ -11,7 +11,7 @@
                 <div class="mt-4">
                   <div class="media align-items-center">
                     <div class="media-body">
-                      <h6 class="text-primary mb-0" v-if="assister.customerType === 'CLIENT'">
+                      <h6 class="text-primary mb-0" v-if="assister.customerType !== 'CLIENT'">
                         Deficiências Especializadas:
                       </h6>
                       <h6 v-else class="text-primary mb-0">Deficiências:</h6>
