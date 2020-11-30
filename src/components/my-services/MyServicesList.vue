@@ -11,6 +11,18 @@
                   <p class="text-muted mb-0">Serviços requisitados</p>
                 </div>
               </div>
+              <InputStatusService v-model="status" custom-class="col-lg-3 col-md-6 ml-auto" />
+              <div class="col-lg-3 col-md-6">
+                <div class="form-group">
+                  <label>&nbsp;</label>
+                  <button class="searchbtn btn btn-primary btn-block"
+                          type="button" @click="requestServices"
+                          :disabled="loading"
+                  >
+                    Buscar
+                  </button>
+                </div>
+              </div>
             </div><!--end row-->
           </div>
         </div><!--end col-->
@@ -39,10 +51,12 @@ import { request } from '../../api/request';
 import Loading from '../utils/Loading.vue';
 import ServiceWrapper from '../services/ServiceWrapper.vue';
 import MyServicesCard from './MyServicesCard.vue';
+import InputStatusService from '../input/InputStatusService.vue';
 
 export default {
   name: 'MyServicesList',
   components: {
+    InputStatusService,
     MyServicesCard,
     ServiceWrapper,
     Loading,
@@ -51,6 +65,7 @@ export default {
   data: () => ({
     assisters: [],
     loading: false,
+    status: '',
   }),
   computed: {
     user() {
@@ -63,7 +78,7 @@ export default {
   methods: {
     requestServices() {
       this.loading = true;
-      this.getAssister(`api/v1/customer/${this.user.id}/services`)
+      this.getAssister(`api/v1/customer/${this.user.id}/services?status=${this.status}`)
         .then((res) => {
           this.assisters = res;
           this.loading = false;
