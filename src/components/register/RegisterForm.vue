@@ -1,7 +1,8 @@
 <template>
   <section class="section pt-0">
     <div class="container">
-      <div class="row justify-content-center">
+      <Loading v-if="loading"/>
+      <div v-else class="row justify-content-center">
         <div class="col">
           <div class="card custom-form border-0">
             <div class="card-body">
@@ -177,11 +178,11 @@
                 </Accordion>
                 <div class="row mt-5">
                   <div class="col-sm-12">
-                    <button class="submitBnt btn btn-primary" v-show="!submitButton"
+                    <button class="submitBnt btn btn-primary" v-show="!loading"
                             type="submit">
                       Cadastrar!
                     </button>
-                    <button class="submitBnt btn btn-primary" v-show="submitButton"
+                    <button class="submitBnt btn btn-primary" v-show="loading"
                             type="button" disabled>
                       <span class="spinner-border"></span>
                     </button>
@@ -224,10 +225,12 @@ import Accordion from '../utils/Accordion.vue';
 import CreditCard from '../utils/CreditCard.vue';
 import InputCreditCard from '../input/InputCreditCard.vue';
 import InputExpiration from '../input/InputExpiration.vue';
+import Loading from '../utils/Loading.vue';
 
 export default {
   name: 'RegisterForm',
   components: {
+    Loading,
     InputExpiration,
     InputCreditCard,
     CreditCard,
@@ -288,7 +291,7 @@ export default {
     },
     specialNeeds,
     invalidCEP: false,
-    submitButton: false,
+    loading: false,
   }),
   validations: {
     picture: {
@@ -395,7 +398,7 @@ export default {
   },
   methods: {
     submit() {
-      this.submitButton = true;
+      this.loading = !this.loading;
       this.validations.$touch();
       const invalid = this.validations.$invalid;
       const customer = { ...this.customer };
@@ -419,9 +422,12 @@ export default {
                     this.redirectTo('LandingClient.Index');
                   });
               });
+          }).catch(() => {
+            this.loading = !this.loading;
           });
+      } else {
+        this.loading = !this.loading;
       }
-      this.submitButton = false;
     },
     previewFiles(event) {
       const { files } = event.target;

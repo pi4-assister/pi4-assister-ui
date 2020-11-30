@@ -150,8 +150,8 @@ export default {
       const quote = { ...this.quote };
       if (!invalid) {
         this.quoteRequest('/api/v1/service/quote', quote, 'O orçamento foi enviado com sucesso!')
-          .then(() => {
-            this.redirectTo('Services.Index');
+          .then((res) => {
+            this.redirectTo('MyServices.Quote', res.id);
           });
       }
     },

@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 const FiltroTelefone = (value) => {
   if (value != '' && value != null && value != '-') {
     if (value.length == 10) return value.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3');

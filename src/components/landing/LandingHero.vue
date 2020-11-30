@@ -17,7 +17,7 @@
                     </div>
                     <div class="content mt-3">
                       <h6 class="mb-0">
-                        <a href="#" class="title text-dark">Deficiência Física</a>
+                        <span class="title text-dark">Deficiência Física</span>
                       </h6>
                     </div>
                   </div>
@@ -31,7 +31,7 @@
                     </div>
                     <div class="content mt-3">
                       <h6 class="mb-0">
-                        <a href="#" class="title text-dark">Deficiência Visual</a>
+                        <span class="title text-dark">Deficiência Visual</span>
                       </h6>
                     </div>
                   </div>
@@ -45,7 +45,7 @@
                     </div>
                     <div class="content mt-3">
                       <h6 class="mb-0">
-                        <a href="#" class="title text-dark">Deficiência Mental</a>
+                        <span class="title text-dark">Deficiência Mental</span>
                       </h6>
                     </div>
                   </div>
@@ -59,12 +59,12 @@
                     </div>
                     <div class="content mt-3">
                       <h6 class="mb-0">
-                        <a href="#" class="title text-dark">Deficiência Auditiva</a>
+                        <span class="title text-dark">Deficiência Auditiva</span>
                       </h6>
                     </div>
                   </div>
                 </div>
-              </div><!--end col-->
+              </div>
               <div class="col-lg-2 col-md-4 col-6 mt-4 pt-2">
                 <div class="card explore-feature border-0 rounded text-center bg-white">
                   <div class="card-body">
@@ -73,7 +73,7 @@
                     </div>
                     <div class="content mt-3">
                       <h6 class="mb-0">
-                        <a href="#" class="title text-dark">Terceira Idade (Idosos)</a>
+                        <span class="title text-dark">Terceira Idade (Idosos)</span>
                       </h6>
                     </div>
                   </div>

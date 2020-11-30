@@ -42,10 +42,19 @@ export default {
     AccountBackground,
     AccountProfileImage,
   }),
+  computed: {
+    user() {
+      return this.$store.state.auth.user;
+    },
+  },
   created() {
     const { id } = this.$route.params;
-    this.getAssister('/api/v1/customer', id).then((res) => {
-      this.assister = { ...res };
+    this.getAssister('/api/v1/service', id).then((res) => {
+      if (this.user.customerType === 'CLIENT') {
+        this.assister = { ...res.assisterCustomer };
+      } else {
+        this.assister = { ...res.clientCustomer };
+      }
     });
   },
 };

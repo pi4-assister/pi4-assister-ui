@@ -13,7 +13,7 @@
           </div>
           <div class="col-6 mt-4 pt-2">
             <router-link :class="`accounts rounded d-block shadow text-center py-3
-                                ${$route.path === '/account/profile/payments' ? 'active' : ''}`"
+                                ${$route.path === '/account/payments' ? 'active' : ''}`"
                          to="/account/payments"
             >
               <span class="pro-icons h3 text-muted"><i class="uil uil-transaction"></i></span>

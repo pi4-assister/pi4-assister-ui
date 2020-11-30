@@ -72,6 +72,22 @@ const request = {
         throw new Error(error);
       }
     },
+    async requestService(context, message = 'Operação realizada com sucesso!') {
+      const { username, password } = JSON.parse(atob(sessionStorage.getItem('auth')));
+      try {
+        const response = await instance.post(context, {
+          auth: {
+            username,
+            password,
+          },
+        });
+        if (message.length !== 0) notification(message, 'success');
+        return response.data || [{}];
+      } catch (error) {
+        this.errorHandle(error);
+        throw new Error(error);
+      }
+    },
     async postProfilePicture(context, data, user, message = 'Operação realizada com sucesso!') {
       const formData = new FormData();
       formData.append('profile-picture', data.profilePictureUrl);

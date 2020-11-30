@@ -9,6 +9,7 @@ import ServicesQuote from '../views/services/ServicesQuote.vue';
 
 import Account from '../views/account/Account.vue';
 import AccountUpdate from '../views/account/AccountUpdate.vue';
+import AccountPayments from '../views/account/AccountPayments.vue';
 
 import MyServices from '../views/my-services/MyServices.vue';
 import MyServicesQuote from '../views/my-services/MyServicesQuote.vue';
@@ -61,6 +62,14 @@ const routesClient = [
       title: 'Assister - Welcome :)',
     },
     component: Account,
+  },
+  {
+    path: '/account/payments',
+    name: 'Account.Payment',
+    meta: {
+      title: 'Assister - Welcome :)',
+    },
+    component: AccountPayments,
   },
   {
     path: '/account/profile/update',
