@@ -29,12 +29,66 @@ const request = {
         throw new Error(error);
       }
     },
+    async getAssister(context, ID) {
+      const requestTo = ID ? `${context}/${ID}` : context;
+      const { username, password } = JSON.parse(atob(sessionStorage.getItem('auth')));
+      try {
+        const response = await instance.get(requestTo, {
+          auth: {
+            username,
+            password,
+          },
+        });
+        return response.data || [{}];
+      } catch (error) {
+        this.errorHandle(error);
+        throw new Error(error);
+      }
+    },
     // [ POST ]
     async postRequest(context, data, message = 'Operação realizada com sucesso!') {
       try {
         const response = await instance.post(context, data);
-        notification(message, 'success');
-        return response.data.data || [{}];
+        if (message.length !== 0) notification(message, 'success');
+        return response.data || [{}];
+      } catch (error) {
+        this.errorHandle(error);
+        throw new Error(error);
+      }
+    },
+    async quoteRequest(context, data, message = 'Operação realizada com sucesso!') {
+      const { username, password } = JSON.parse(atob(sessionStorage.getItem('auth')));
+      try {
+        const response = await instance.post(context, data, {
+          auth: {
+            username,
+            password,
+          },
+        });
+        if (message.length !== 0) notification(message, 'success');
+        return response.data || [{}];
+      } catch (error) {
+        this.errorHandle(error);
+        throw new Error(error);
+      }
+    },
+    async postProfilePicture(context, data, user, message = 'Operação realizada com sucesso!') {
+      const formData = new FormData();
+      formData.append('profile-picture', data.profilePictureUrl);
+      formData.append('id', data.customerId);
+      const { username, password } = user;
+      try {
+        const response = await instance.post(context, formData, {
+          auth: {
+            username,
+            password,
+          },
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+        if (message.length !== 0) notification(message, 'success');
+        return response.data || [{}];
       } catch (error) {
         this.errorHandle(error);
         throw new Error(error);

@@ -24,7 +24,8 @@
     <router-link v-else tag="a" to="/account/profile"
                  class="nav__link">
       <user-icon v-if="!user.photoUrl"/>
-      <img v-else :src="user.photoUrl" width="30" height="30" :alt="user.fullName">
+      <img v-else class="rounded-circle" :src="user.photoUrl"
+           width="30" height="30" :alt="user.fullName">
       <span class="nav__text">Perfil</span>
     </router-link>
   </nav>

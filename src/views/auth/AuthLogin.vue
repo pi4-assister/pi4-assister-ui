@@ -68,7 +68,7 @@ export default {
     submit() {
       const customer = { ...this.customer };
       this.submitButton = true;
-      this.authRequest(this.authPost, customer, 'O Usuário logou com Sucesso!')
+      this.authRequest(this.authPost, customer, 'Bem-Vindo :)')
         .then((response) => {
           // eslint-disable-next-line no-console
           console.log(response, btoa(JSON.stringify(customer)));

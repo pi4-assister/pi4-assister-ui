@@ -31,7 +31,8 @@
           <user-icon />
         </router-link>
         <router-link tag="a" to="/account/profile" v-else>
-          <img :src="user.photoUrl" width="30" height="30" :alt="user.fullName">
+          <img class="rounded-circle" :src="user.photoUrl"
+               width="30" height="30" :alt="user.fullName">
         </router-link>
       </div>
       <!--end login button-->
@@ -48,22 +49,22 @@
               Início
             </router-link>
           </li>
-          <li :class="$route.name === '' ? 'active' : ''">
+          <li :class="$route.name === '' ? 'active' : ''" v-if="user.customerType === 'CLIENT'">
             <router-link
-              v-if="user.customerType === 'CLIENT'"
               to="/services"
               tag="a"
               class="assister-route"
             >
               Serviços
             </router-link>
+          </li>
+          <li :class="$route.name === '' ? 'active' : ''" v-if="userAuthenticated">
             <router-link
-              v-else
-              to="/notifications"
+              to="/my-services"
               tag="a"
               class="assister-route"
             >
-              Notificações
+              Meus Serviços
             </router-link>
           </li>
           <li :class="$route.name === '' ? 'active' : ''" v-if="!userAuthenticated">

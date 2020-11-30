@@ -7,12 +7,10 @@
       </div>
       <h5 class="mb-0 position">
         <span class="text-dark">Assister</span>
-        <ul class="list-unstyled h6 mb-0 text-warning">
-          <li class="list-inline-item mb-0"><i class="mdi mdi-star"></i></li>
-          <li class="list-inline-item mb-0"><i class="mdi mdi-star"></i></li>
-          <li class="list-inline-item mb-0"><i class="mdi mdi-star"></i></li>
-          <li class="list-inline-item mb-0"><i class="mdi mdi-star"></i></li>
-          <li class="list-inline-item mb-0"><i class="mdi mdi-star"></i></li>
+        <ul class="list-unstyled h6 mb-0 text-warning" >
+          <li v-for="star in assister['rate']" :key="`rate-${star}`" class="list-inline-item mb-0">
+            <i class="mdi mdi-star"></i>
+          </li>
         </ul>
       </h5>
       <ul class="list-unstyled head mb-0">
@@ -30,11 +28,12 @@
         <p class="text-muted">
           <a href="#" class="video-play-icon text-muted">
             <map-pin-icon class="fea icon-sm"/>
-            São Paulo
+            {{ `${assister['city']}, ${assister['state']}` }}
           </a>
         </p>
       </div>
-      <ul class="job-facts list-unstyled" v-for="specialNeed in disability" :key="specialNeed.id">
+      <ul class="job-facts list-unstyled" v-for="specialNeed in disability.slice(0, 3)"
+          :key="specialNeed.id">
         <li class="list-inline-item text-muted d-block">
           <check-icon class="fea icon-sm text-success mr-1"/>
           {{ specialNeed.need.label }}
@@ -42,15 +41,16 @@
       </ul>
       <div v-if="!userAuthenticated" class="mt-auto w-100">
         <router-link to="/auth-register" class="btn btn-outline-light">
-          Cadastrar-se
+          Cadastre-se
         </router-link>
         <router-link to="/auth-login" class="btn btn-primary float-right">
           Entrar
         </router-link>
       </div>
-      <button v-else type="button" class="btn btn-outline-primary btn-block mt-auto">
+      <router-link v-else tag="button" :to="{ name: 'Services.Quote', params: { id: assister.id }}"
+                   class="btn btn-outline-primary btn-block mt-auto">
         Solicitar Orçamento
-      </button>
+      </router-link>
     </div>
   </div>
 </template>

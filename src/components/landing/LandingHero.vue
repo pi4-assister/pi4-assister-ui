@@ -13,7 +13,7 @@
                 <div class="card explore-feature border-0 rounded text-center bg-white">
                   <div class="card-body">
                     <div class="icon rounded-circle shadow-lg d-inline-block">
-                      <img :src="HealthSVG" class="avatar avatar-md-sm" alt="">
+                      <img :src="Physic" class="avatar avatar-md-sm" alt="">
                     </div>
                     <div class="content mt-3">
                       <h6 class="mb-0">
@@ -27,7 +27,7 @@
                 <div class="card explore-feature border-0 rounded text-center bg-white">
                   <div class="card-body">
                     <div class="icon rounded-circle shadow-lg d-inline-block">
-                      <img :src="HealthSVG" class="avatar avatar-md-sm" alt="">
+                      <img :src="Eye" class="avatar avatar-md-sm" alt="">
                     </div>
                     <div class="content mt-3">
                       <h6 class="mb-0">
@@ -41,7 +41,7 @@
                 <div class="card explore-feature border-0 rounded text-center bg-white">
                   <div class="card-body">
                     <div class="icon rounded-circle shadow-lg d-inline-block">
-                      <img :src="HealthSVG" class="avatar avatar-md-sm" alt="">
+                      <img :src="Mental" class="avatar avatar-md-sm" alt="">
                     </div>
                     <div class="content mt-3">
                       <h6 class="mb-0">
@@ -55,7 +55,7 @@
                 <div class="card explore-feature border-0 rounded text-center bg-white">
                   <div class="card-body">
                     <div class="icon rounded-circle shadow-lg d-inline-block">
-                      <img :src="TermLife" class="avatar avatar-md-sm" alt="">
+                      <img :src="Deaf" class="avatar avatar-md-sm" alt="">
                     </div>
                     <div class="content mt-3">
                       <h6 class="mb-0">
@@ -69,7 +69,7 @@
                 <div class="card explore-feature border-0 rounded text-center bg-white">
                   <div class="card-body">
                     <div class="icon rounded-circle shadow-lg d-inline-block">
-                      <img :src="FamilyHealth" class="avatar avatar-md-sm" alt="">
+                      <img :src="Elderly" class="avatar avatar-md-sm" alt="">
                     </div>
                     <div class="content mt-3">
                       <h6 class="mb-0">
@@ -89,17 +89,21 @@
 
 <script>
 import BackgroundInsurence from '../../assets/images/insurance/bg.png';
-import HealthSVG from '../../assets/images/insurance/health.svg';
-import TermLife from '../../assets/images/insurance/term-life.svg';
-import FamilyHealth from '../../assets/images/insurance/family-health.svg';
+import Elderly from '../../assets/images/disability/elderly.svg';
+import Deaf from '../../assets/images/disability/deaf.svg';
+import Eye from '../../assets/images/disability/eye.svg';
+import Physic from '../../assets/images/disability/physic.svg';
+import Mental from '../../assets/images/disability/mental.svg';
 
 export default {
   name: 'LandingHero',
   data: () => ({
     BackgroundInsurence,
-    HealthSVG,
-    TermLife,
-    FamilyHealth,
+    Elderly,
+    Deaf,
+    Eye,
+    Physic,
+    Mental,
   }),
   computed: {
     backgroundUrl() {

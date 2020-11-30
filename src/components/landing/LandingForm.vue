@@ -47,7 +47,7 @@ export default {
     },
     endDate() {
       const endDate = this.rangeDate.split(' até ')[1];
-      return new Date(endDate).toISOString();
+      return new Date(endDate || this.startDate).toISOString();
     },
   },
   watch: {

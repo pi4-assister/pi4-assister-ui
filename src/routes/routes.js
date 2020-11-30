@@ -4,10 +4,14 @@ import LayoutWrapper from '../components/layout/layout-wrapper.vue';
 import AuthLogin from '../views/auth/AuthLogin.vue';
 import AuthRegister from '../views/auth/AuthRegister.vue';
 
-import TmpServices from '../views/services/Services.vue';
+import Services from '../views/services/Services.vue';
+import ServicesQuote from '../views/services/ServicesQuote.vue';
 
 import Account from '../views/account/Account.vue';
 import AccountUpdate from '../views/account/AccountUpdate.vue';
+
+import MyServices from '../views/my-services/MyServices.vue';
+import MyServicesQuote from '../views/my-services/MyServicesQuote.vue';
 
 const routesClient = [
   {
@@ -19,12 +23,36 @@ const routesClient = [
     component: LandingClient,
   },
   {
+    path: '/my-services',
+    name: 'MyServices.Index',
+    meta: {
+      title: 'Assister - Welcome :)',
+    },
+    component: MyServices,
+  },
+  {
+    path: '/my-services/:id',
+    name: 'MyServices.Quote',
+    meta: {
+      title: 'Assister - Welcome :)',
+    },
+    component: MyServicesQuote,
+  },
+  {
     path: '/services',
     name: 'Services.Index',
     meta: {
       title: 'Assister - Welcome :)',
     },
-    component: TmpServices,
+    component: Services,
+  },
+  {
+    path: '/services/quote/:id',
+    name: 'Services.Quote',
+    meta: {
+      title: 'Assister - Welcome :)',
+    },
+    component: ServicesQuote,
   },
   {
     path: '/account/profile',

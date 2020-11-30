@@ -12,41 +12,33 @@
             <div class="media align-items-center">
               <div class="media-body">
                 <h6 class="text-primary mb-0">Data de Nascimento:</h6>
-                <a href="javascript:void(0)" class="text-muted">
+                <span class="text-muted">
                   {{ new Date(user.birthdate).toLocaleDateString() }}
-                </a>
+                </span>
               </div>
             </div>
             <div class="media align-items-center mt-3">
               <div class="media-body">
                 <h6 class="text-primary mb-0">Localização:</h6>
-                <a href="javascript:void(0)" class="text-muted">
+                <span class="text-muted">
                   {{ `${user.city}, ${user.state}` }}
-                </a>
-              </div>
-            </div>
-            <div class="media align-items-center mt-3">
-              <div class="media-body">
-                <h6 class="text-primary mb-0">Telefone:</h6>
-                <a href="javascript:void(0)" class="text-muted">
-                  {{ user.landlineNumber }}
-                </a>
+                </span>
               </div>
             </div>
             <div class="media align-items-center mt-3">
               <div class="media-body">
                 <h6 class="text-primary mb-0">Celular:</h6>
-                <a href="javascript:void(0)" class="text-muted">
+                <span class="text-muted">
                   {{ user.phoneNumber }}
-                </a>
+                </span>
               </div>
             </div>
             <div class="media align-items-center mt-3">
               <div class="media-body">
                 <h6 class="text-primary mb-0">CPF:</h6>
-                <a href="javascript:void(0)" class="text-muted">
-                  {{ `${user.city}, ${user.state}` }}
-                </a>
+                <span class="text-muted">
+                  {{ user.personIdentifier }}
+                </span>
               </div>
             </div>
           </div>

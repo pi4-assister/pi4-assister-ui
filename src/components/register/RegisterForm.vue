@@ -44,7 +44,7 @@
                 </Accordion>
                 <Accordion label="Informações Complementares" accordion="infoComplement">
                   <div class="row">
-                    <InputCheckbox label="Deficiências" :list="specialNeeds"
+                    <InputCheckbox :label="label[customer.customerType]" :list="specialNeeds"
                                    text="label" v-model="customer.customerSpecialNeeds"
                                    :invalid="validations.customer.customerSpecialNeeds.$error"
                                    message="Selecione pelo menos um item acima"
@@ -54,7 +54,7 @@
                   </div>
                   <div class="row">
                     <InputDefault v-model="customer.bio" label="Descrição"
-                                  placeholder="ex: Sou deficiente auditivo, tenho dificuldade em..."
+                                  :placeholder="placeholder[customer.customerType]"
                                   message="A descrição deve ser preenchida"
                                   :invalid="validations.customer.bio.$error"
                                   type="text"
@@ -122,11 +122,68 @@
                     />
                   </div>
                 </Accordion>
+                <Accordion label="Informações de Cobrança" accordion="infoPayment">
+                  <div class="row">
+                    <CreditCard expiration-date="10/22"
+                                :holder-name="credit.holderName"
+                                :holder-number="credit.holderNumber"
+                    />
+                    <InputMax v-model="credit.holderName"
+                              placeholder="ex: Nome Completo"
+                              label="Nome Completo (Portador do Cartão)"
+                              message="O nome precisa ter entre 12 e 26 caracteres"
+                              :invalid="validations.credit.holderName.$error"
+                              :counter="false"
+                              :maxlength="26"
+                    />
+                    <InputCreditCard v-model="credit.holderNumber"
+                                     :invalid="validations.credit.holderNumber.$error"
+                    />
+                    <InputExpiration v-model="credit.expirationMonth" label="Mês de Expiração"
+                                     custom-class="col-md-3"/>
+                    <InputExpiration v-model="credit.expirationYear" label="Ano de Expiração"
+                                     custom-class="col-md-3"
+                                     type="year"/>
+                  </div>
+                </Accordion>
+                <Accordion label="Foto de Perfil" accordion="infoPicture">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="mt-3 text-md-left text-center d-sm-flex">
+                        <img v-if="picture.imagem"
+                             class="avatar float-left avatar-medium rounded-circle shadow mr-md-4"
+                             alt="" :src="picture.imagem">
+                        <img v-else
+                             class="avatar float-left avatar-medium rounded-circle shadow mr-md-4"
+                             alt="" :src="imgDefault">
+                        <div class="mt-md-4 mt-3 mt-sm-0">
+                          <div class="upload-wrapper">
+                            <button class="btn btn-outline-light" type="button">Procurar...</button>
+                            <input type="file" @change="previewFiles" accept="image/*">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row" v-show="validations.picture.imagem.$error">
+                    <div class="col-md-12">
+                      <div class="d-flex">
+                        <div class="form-text invalid-feedback">
+                          Selecione uma imagem de perfil
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </Accordion>
                 <div class="row mt-5">
                   <div class="col-sm-12">
-                    <button class="submitBnt btn btn-primary" :disabled="submitButton"
+                    <button class="submitBnt btn btn-primary" v-show="!submitButton"
                             type="submit">
                       Cadastrar!
+                    </button>
+                    <button class="submitBnt btn btn-primary" v-show="submitButton"
+                            type="button" disabled>
+                      <span class="spinner-border"></span>
                     </button>
                   </div>
                 </div>
@@ -140,6 +197,7 @@
 </template>
 
 <script>
+
 import { validationMixin } from 'vuelidate';
 import {
   required,
@@ -148,6 +206,7 @@ import {
   sameAs,
   email,
 } from 'vuelidate/lib/validators';
+import imgDefault from '../../assets/images/cadastrar-novo.png';
 import { validaCPF } from '../../validations/cpf';
 import { request } from '../../api/request';
 import { redirect } from '../../mixins/redirect';
@@ -162,10 +221,16 @@ import InputCheckbox from '../input/InputCheckbox.vue';
 import InputDate from '../input/InputDate.vue';
 import ClientType from '../auth/ClientType.vue';
 import Accordion from '../utils/Accordion.vue';
+import CreditCard from '../utils/CreditCard.vue';
+import InputCreditCard from '../input/InputCreditCard.vue';
+import InputExpiration from '../input/InputExpiration.vue';
 
 export default {
   name: 'RegisterForm',
   components: {
+    InputExpiration,
+    InputCreditCard,
+    CreditCard,
     Accordion,
     ClientType,
     InputDate,
@@ -179,6 +244,7 @@ export default {
   },
   mixins: [validationMixin, request, redirect],
   data: () => ({
+    imgDefault,
     customer: {
       address: '',
       bio: '',
@@ -198,11 +264,49 @@ export default {
       number: '',
       customerSpecialNeeds: [],
     },
+    credit: {
+      creditCardBrand: '',
+      customerId: '',
+      expirationDate: '',
+      expirationMonth: '01',
+      expirationYear: '21',
+      holderName: '',
+      holderNumber: '',
+    },
+    picture: {
+      profilePictureUrl: '',
+      imagem: '',
+      customerId: '',
+    },
+    placeholder: {
+      CLIENT: 'ex: Sou deficiente auditivo, tenho dificuldade em...',
+      ASSISTER: 'ex: Sou especialista em cuidar de pessoas com deficiência visual',
+    },
+    label: {
+      CLIENT: 'Deficiências Possuídas',
+      ASSISTER: 'Deficiências Especializadas',
+    },
     specialNeeds,
     invalidCEP: false,
     submitButton: false,
   }),
   validations: {
+    picture: {
+      imagem: {
+        required,
+      },
+    },
+    credit: {
+      holderName: {
+        required,
+        minLength: minLength(12),
+        maxLength: maxLength(26),
+      },
+      holderNumber: {
+        required,
+        minLength: minLength(16),
+      },
+    },
     customer: {
       fullName: {
         required,
@@ -261,6 +365,13 @@ export default {
       },
     },
   },
+  watch: {
+    // eslint-disable-next-line func-names
+    'credit.holderNumber': function () {
+      const creditCard = this.credit.holderNumber;
+      this.credit.creditCardBrand = creditCard.split('')[0] === '4' ? 'VISA' : 'MASTERCARD';
+    },
+  },
   computed: {
     customerPost() {
       return this.$store.state.customer.customer.post;
@@ -292,12 +403,38 @@ export default {
         customer.birthdate = new Date(customer.birthdate).toISOString();
       }
       if (!invalid) {
-        this.postRequest(this.customerPost, customer, 'O Usuário foi cadastrado com Sucesso!')
-          .then(() => {
-            this.redirectTo('LandingClient.Index');
+        this.postRequest(this.customerPost, customer, '')
+          .then((res) => {
+            this.credit.customerId = res.id;
+            this.credit.expirationDate = `${this.credit.expirationMonth}/${this.credit.expirationYear}`;
+            this.postRequest('/api/v1/card', this.credit)
+              .then(() => {
+                const user = {
+                  username: this.customer.email,
+                  password: this.customer.password,
+                };
+                this.picture.customerId = this.credit.customerId;
+                this.postProfilePicture(`/api/v1/customer/${this.credit.customerId}/profile-picture`, this.picture, user, 'O Usuário foi cadastrado com Sucesso!')
+                  .then(() => {
+                    this.redirectTo('LandingClient.Index');
+                  });
+              });
           });
       }
       this.submitButton = false;
+    },
+    previewFiles(event) {
+      const { files } = event.target;
+      const createImage = (file) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          this.picture.imagem = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      };
+      createImage(files[0]);
+      const blob = files[0];
+      this.picture.profilePictureUrl = new File([blob], 'profile-picture.jpeg', { type: 'image/*' });
     },
     procurarCEP() {
       this.consultaCEP(this.customer.zipCode)
